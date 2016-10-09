@@ -1,0 +1,18 @@
+package game.engine;
+import java.awt.Graphics;
+import java.util.*;
+
+public class Scene 
+{
+	public List<Camera> cameras = new ArrayList<Camera>();
+	public List<GameObject> gameObjects = new ArrayList<GameObject>();
+	
+	public void Draw(Graphics g, Game game)
+	{
+		for(Iterator<Camera> i = cameras.iterator(); i.hasNext();)
+		{
+			Camera cam = i.next();
+			cam.draw(g, game, gameObjects.iterator());
+		}
+	}
+}

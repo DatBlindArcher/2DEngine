@@ -1,0 +1,41 @@
+package game.engine;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Iterator;
+
+public class Camera extends GameObject
+{
+	private BufferedImage imageBuffer;
+	
+	public Camera(String objectName) 
+	{
+		super(objectName);
+		imageBuffer = new BufferedImage(Screen.width, Screen.height, BufferedImage.TYPE_INT_RGB);
+	}
+	
+	public void draw(Graphics g, Game game, Iterator<GameObject> gameObjects)
+	{
+		Renderer.graphics = imageBuffer.getGraphics();
+		Graphics graphics = imageBuffer.getGraphics();
+		
+		// Background
+		Renderer.setColor(Color.white);
+		Renderer.graphics.fillRect(0, 0, Screen.width, Screen.height);
+		
+		// Stats
+		Renderer.setColor(Color.black);
+		Renderer.label(new Rect(0, 10, 0, 0), "Time: " + Time.time);
+		Renderer.label(new Rect(0, 30, 0, 0), "DeltaTime: " + Time.deltaTime);
+		Renderer.label(new Rect(0, 50, 0, 0), "FixedTime: " + Time.fixedTime);
+		Renderer.label(new Rect(0, 70, 0, 0), "DeltaFixedTime: " + Time.deltaFixedTime);
+		Renderer.label(new Rect(0, 90, 0, 0), (1000f / Time.deltaTime) + " FPS");
+
+		for(Iterator<GameObject> i = gameObjects; i.hasNext();)
+		{
+			i.next().draw(Renderer.graphics, transform.position);
+		}
+		
+		g.drawImage(imageBuffer, game.insets.left, game.insets.top, game);
+	}
+}

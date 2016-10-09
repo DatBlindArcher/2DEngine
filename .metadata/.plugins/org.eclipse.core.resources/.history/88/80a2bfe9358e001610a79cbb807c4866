@@ -1,0 +1,16 @@
+package game.engine;
+
+import java.util.Iterator;
+
+public class Camera extends GameObject
+{
+	public Camera(String objectName) 
+	{
+		super(objectName);
+	}
+	
+	public void draw(Iterator<GameObject> gameObjects)
+	{
+		
+	}
+}

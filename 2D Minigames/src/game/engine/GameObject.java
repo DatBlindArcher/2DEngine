@@ -1,4 +1,7 @@
 package game.engine;
+
+import java.awt.Graphics;
+
 public class GameObject
 {
 	public String name;
@@ -30,7 +33,7 @@ public class GameObject
 		
 	}
 	
-	public void draw()
+	public void draw(Graphics g, Vector2 offset)
 	{
 		
 	}

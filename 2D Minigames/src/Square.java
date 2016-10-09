@@ -1,14 +1,11 @@
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-
-import game.engine.GameObject;
-import game.engine.Input;
-import game.engine.Rect;
-import game.engine.Renderer;
-import game.engine.Screen;
-import game.engine.Vector2;
+import game.engine.*;
 
 public class Square extends GameObject
 {
+	public float speed = 1f;
 	private Vector2 velocity;
 	
 	public Square(String objectName) 
@@ -43,18 +40,19 @@ public class Square extends GameObject
 		}
 		
 		velocity.normalize();
-		transform.position.add(velocity);
+		transform.position.add(velocity.multiply(speed * Time.deltaTime));
 		if(transform.position.x < 0f) transform.position.x = 0f;
-		if(transform.position.x > Screen.width - 100) transform.position.x = Screen.width - 100;
+		if(transform.position.x > Screen.width - 50) transform.position.x = Screen.width - 50;
 		if(transform.position.y < 0f) transform.position.y = 0f;
-		if(transform.position.y > Screen.height - 100) transform.position.y = Screen.height - 100;
+		if(transform.position.y > Screen.height - 50) transform.position.y = Screen.height - 50;
 	}
 	
-	public void draw()
+	public void draw(Graphics g, Vector2 offset)
 	{
-		super.draw();
-		Renderer.label(new Rect(0, 110, 0, 0), "Position: " + transform.position.x + ", " + transform.position.y);
-		Renderer.label(new Rect(0, 130, 0, 0), "Velocity: " + velocity.x + ", " + velocity.y);
-		Renderer.graphics.drawRect((int)transform.position.x,(int)transform.position.y, 100, 100);
+		super.draw(g, offset);
+		GUI.label(new Rect(0, 110, 0, 0), "Position: " + transform.position.x + ", " + transform.position.y);
+		GUI.label(new Rect(0, 130, 0, 0), "Velocity: " + velocity.x + ", " + velocity.y);
+		g.setColor(Color.red);
+		g.fillRect((int)transform.position.x - (int)offset.x,(int)transform.position.y - (int)offset.y, 50, 50);
 	}
 }

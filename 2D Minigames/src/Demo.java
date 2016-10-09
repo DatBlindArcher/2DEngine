@@ -1,4 +1,4 @@
-import game.engine.Game;
+import game.engine.*;
 
 public class Demo 
 {

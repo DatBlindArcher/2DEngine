@@ -5,6 +5,8 @@ import java.util.*;
 import java.util.List;
 import javax.swing.*;
 
+import game.engine.Renderer;
+
 public class Game extends JFrame
 {
 	private Scene activeScene;
@@ -14,8 +16,9 @@ public class Game extends JFrame
 	private boolean isRunning = true;
 	private static final long serialVersionUID = 1L;
 	private String title;
-	private BufferedImage backBuffer;
-	private Insets insets;
+	private BufferedImage guiBuffer;
+	private BufferedImage screenBuffer;
+	public Insets insets;
 
 	public Game(String title, int width, int height)
 	{
@@ -85,7 +88,8 @@ public class Game extends JFrame
 
         insets = getInsets(); 
         setSize(insets.left + Screen.width + insets.right, insets.top + Screen.height + insets.bottom);
-		backBuffer = new BufferedImage(Screen.width, Screen.height, BufferedImage.TYPE_INT_RGB);
+		guiBuffer = new BufferedImage(Screen.width, Screen.height, BufferedImage.TYPE_INT_ARGB_PRE);
+		screenBuffer = new BufferedImage(Screen.width, Screen.height, BufferedImage.TYPE_INT_RGB);
         new Input(this);
 	}
 
@@ -107,27 +111,25 @@ public class Game extends JFrame
 
 	void draw()
 	{
+		// Draw gui and objects
 		Graphics g = getGraphics();
-		Renderer.graphics = backBuffer.getGraphics();
-		
-		// Background
-		Renderer.setColor(Color.white);
-		Renderer.graphics.fillRect(0, 0, Screen.width, Screen.height);
+		Renderer.graphics = screenBuffer.getGraphics();
+		GUI.graphics = (Graphics2D)guiBuffer.getGraphics();
+		GUI.graphics.setBackground(new Color(0, 255, 0, 0));
+		GUI.graphics.clearRect(0, 0, Screen.width, Screen.height);
+		GUI.graphics.setColor(Color.black);
+		activeScene.Draw(this);
 		
 		// Stats
-		Renderer.setColor(Color.black);
-		Renderer.label(new Rect(0, 10, 0, 0), "Time: " + Time.time);
-		Renderer.label(new Rect(0, 30, 0, 0), "DeltaTime: " + Time.deltaTime);
-		Renderer.label(new Rect(0, 50, 0, 0), "FixedTime: " + Time.fixedTime);
-		Renderer.label(new Rect(0, 70, 0, 0), "DeltaFixedTime: " + Time.deltaFixedTime);
-		Renderer.label(new Rect(0, 90, 0, 0), (1000f / Time.deltaTime) + " FPS");
-
-		for(Iterator<GameObject> i = activeScene.gameObjects.iterator(); i.hasNext();)
-		{
-			i.next().draw();
-		}
+		GUI.label(new Rect(0, 10, 0, 0), "Time: " + Time.time);
+		GUI.label(new Rect(0, 30, 0, 0), "DeltaTime: " + Time.deltaTime);
+		GUI.label(new Rect(0, 50, 0, 0), "FixedTime: " + Time.fixedTime);
+		GUI.label(new Rect(0, 70, 0, 0), "DeltaFixedTime: " + Time.deltaFixedTime);
+		GUI.label(new Rect(0, 90, 0, 0), (1000f / Time.deltaTime) + " FPS");
 		
-		g.drawImage(backBuffer, insets.left, insets.top, this);
+		// Draw frame
+		Renderer.graphics.drawImage(guiBuffer, 0, 0, this);
+		g.drawImage(screenBuffer, insets.left, insets.top, this);
 	}
 
 	public Scene getActiveScene()
