@@ -22,6 +22,7 @@
 	</section>
 	<section name="OptionalMessageDialog.hide.">
 		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
+		<item value="false" key="configure_problem_severity_dialog_id"/>
 	</section>
 	<section name="BuildPathsPropertyPage">
 		<item value="3" key="pageIndex"/>
@@ -44,6 +45,8 @@
 		</section>
 	</section>
 	<section name="completion_proposal_size">
+		<item value="331" key="size.y"/>
+		<item value="446" key="size.x"/>
 	</section>
 	<section name="JavaElementSearchActions">
 	</section>
