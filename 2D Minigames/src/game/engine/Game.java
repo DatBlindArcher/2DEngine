@@ -2,15 +2,16 @@ package game.engine;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.*;
-import java.util.List;
 import javax.swing.*;
 
 import game.engine.Renderer;
 
 public class Game extends JFrame
 {
-	private Scene activeScene;
-	private List<Scene> scenes = new ArrayList<Scene>();
+	public Insets insets;
+	public Scene ddolScene;
+	public Scene activeScene;
+	public static Game instance;
 
 	private long startTime;
 	private boolean isRunning = true;
@@ -18,13 +19,13 @@ public class Game extends JFrame
 	private String title;
 	private BufferedImage guiBuffer;
 	private BufferedImage screenBuffer;
-	public Insets insets;
 
 	public Game(String title, int width, int height)
 	{
 		this.title = title;
 		Screen.width = width;
 		Screen.height = height;
+		instance = this;
 	}
 
 	public void run()
@@ -78,7 +79,8 @@ public class Game extends JFrame
 
 	void initialize()
 	{
-		activeScene = scenes.get(0);
+		ddolScene = new Scene();
+		activeScene.activateScene(ddolScene);
 		startTime = System.currentTimeMillis();
 		setTitle(title); 
 		setSize(Screen.width, Screen.height); 
@@ -86,11 +88,11 @@ public class Game extends JFrame
 		setDefaultCloseOperation(EXIT_ON_CLOSE); 
 		setVisible(true); 
 
-        insets = getInsets(); 
-        setSize(insets.left + Screen.width + insets.right, insets.top + Screen.height + insets.bottom);
+		insets = getInsets(); 
+		setSize(insets.left + Screen.width + insets.right, insets.top + Screen.height + insets.bottom);
 		guiBuffer = new BufferedImage(Screen.width, Screen.height, BufferedImage.TYPE_INT_ARGB_PRE);
 		screenBuffer = new BufferedImage(Screen.width, Screen.height, BufferedImage.TYPE_INT_RGB);
-        new Input(this);
+		new Input(this);
 	}
 
 	void update()
@@ -118,27 +120,17 @@ public class Game extends JFrame
 		GUI.graphics.setBackground(new Color(0, 255, 0, 0));
 		GUI.graphics.clearRect(0, 0, Screen.width, Screen.height);
 		GUI.graphics.setColor(Color.black);
-		activeScene.Draw(this);
-		
+		activeScene.draw(this);
+
 		// Stats
 		GUI.label(new Rect(0, 10, 0, 0), "Time: " + Time.time);
 		GUI.label(new Rect(0, 30, 0, 0), "DeltaTime: " + Time.deltaTime);
 		GUI.label(new Rect(0, 50, 0, 0), "FixedTime: " + Time.fixedTime);
 		GUI.label(new Rect(0, 70, 0, 0), "DeltaFixedTime: " + Time.deltaFixedTime);
 		GUI.label(new Rect(0, 90, 0, 0), (1000f / Time.deltaTime) + " FPS");
-		
+
 		// Draw frame
 		Renderer.graphics.drawImage(guiBuffer, 0, 0, this);
 		g.drawImage(screenBuffer, insets.left, insets.top, this);
-	}
-
-	public Scene getActiveScene()
-	{
-		return activeScene;
-	}
-
-	public void addScene(Scene scene)
-	{
-		scenes.add(scene);
 	}
 }

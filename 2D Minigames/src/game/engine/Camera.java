@@ -4,14 +4,14 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
-public class Camera extends GameObject
+public class Camera extends Component
 {
 	private BufferedImage imageBuffer;
 	
-	public Camera(String objectName) 
+	public void start() 
 	{
-		super(objectName);
 		imageBuffer = new BufferedImage(Screen.width, Screen.height, BufferedImage.TYPE_INT_RGB);
+		Game.instance.activeScene.cameras.add(this);
 	}
 	
 	public void draw(Game game, Iterator<GameObject> gameObjects)
@@ -25,9 +25,9 @@ public class Camera extends GameObject
 
 		for(Iterator<GameObject> i = gameObjects; i.hasNext();)
 		{
-			i.next().draw(graphics, transform.position);
+			i.next().draw(graphics, gameObject.transform.position);
 		}
 		
-		Renderer.graphics.drawImage(imageBuffer, (int)transform.position.x, (int)transform.position.y, Screen.width, Screen.height, game);
+		Renderer.graphics.drawImage(imageBuffer, (int)gameObject.transform.position.x, (int)gameObject.transform.position.y, Screen.width, Screen.height, game);
 	}
 }

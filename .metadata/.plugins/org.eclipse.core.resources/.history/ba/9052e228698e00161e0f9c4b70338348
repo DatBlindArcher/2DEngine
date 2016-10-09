@@ -1,0 +1,45 @@
+package game.engine;
+
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
+
+public class GameObject
+{
+	public String name;
+	public Transform transform;
+	public List<Component> components;
+	
+	public GameObject(String objectName)
+	{
+		name = objectName;
+		transform = new Transform();
+		components = new ArrayList<Component>();
+		components.add(transform);
+	}
+	
+	public void start()
+	{
+		components.forEach(x -> { x.start(); });
+	}
+	
+	public void stop()
+	{
+		components.forEach(x -> { x.stop(); });
+	}
+	
+	public void update()
+	{
+		components.forEach(x -> { x.update(); });
+	}
+	
+	public void fixedUpdate()
+	{
+		components.forEach(x -> { x.fixedUpdate(); });
+	}
+	
+	public void draw(Graphics g, Vector2 offset)
+	{
+		components.forEach(x -> { x.draw(); });
+	}
+}

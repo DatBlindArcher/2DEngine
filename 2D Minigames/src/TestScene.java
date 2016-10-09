@@ -2,9 +2,10 @@ import game.engine.*;
 
 public class TestScene extends Scene
 {
-	public TestScene()
+	public void activate()
 	{
-		cameras.add(new Camera("Main Camera"));
-		gameObjects.add(new Square("Square"));
+		super.activate();
+		GameObject.Create(new GameObject("Main Camera", new Component[] { new Camera() }), new Vector2(), 0f);
+		GameObject.Create(new GameObject("Square", new Component[] { new Square() }), new Vector2(Screen.width / 2, Screen.height / 2), 0f);
 	}
 }

@@ -3,15 +3,14 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import game.engine.*;
 
-public class Square extends GameObject
+public class Square extends Component
 {
 	public float speed = 1f;
 	private Vector2 velocity;
 	
-	public Square(String objectName) 
+	public void start() 
 	{
-		super(objectName);
-		transform.position = new Vector2(500 - 50, 400 - 50);
+		gameObject.transform.position = new Vector2(500 - 50, 400 - 50);
 	}
 	
 	public void update()
@@ -40,19 +39,19 @@ public class Square extends GameObject
 		}
 		
 		velocity.normalize();
-		transform.position.add(velocity.multiply(speed * Time.deltaTime));
-		if(transform.position.x < 0f) transform.position.x = 0f;
-		if(transform.position.x > Screen.width - 50) transform.position.x = Screen.width - 50;
-		if(transform.position.y < 0f) transform.position.y = 0f;
-		if(transform.position.y > Screen.height - 50) transform.position.y = Screen.height - 50;
+		gameObject.transform.position.add(velocity.multiply(speed * Time.deltaTime));
+		if(gameObject.transform.position.x < 0f) gameObject.transform.position.x = 0f;
+		if(gameObject.transform.position.x > Screen.width - 50) gameObject.transform.position.x = Screen.width - 50;
+		if(gameObject.transform.position.y < 0f) gameObject.transform.position.y = 0f;
+		if(gameObject.transform.position.y > Screen.height - 50) gameObject.transform.position.y = Screen.height - 50;
 	}
 	
 	public void draw(Graphics g, Vector2 offset)
 	{
 		super.draw(g, offset);
-		GUI.label(new Rect(0, 110, 0, 0), "Position: " + transform.position.x + ", " + transform.position.y);
+		GUI.label(new Rect(0, 110, 0, 0), "Position: " + gameObject.transform.position.x + ", " + gameObject.transform.position.y);
 		GUI.label(new Rect(0, 130, 0, 0), "Velocity: " + velocity.x + ", " + velocity.y);
 		g.setColor(Color.red);
-		g.fillRect((int)transform.position.x - (int)offset.x,(int)transform.position.y - (int)offset.y, 50, 50);
+		g.fillRect((int)gameObject.transform.position.x - (int)offset.x,(int)gameObject.transform.position.y - (int)offset.y, 50, 50);
 	}
 }

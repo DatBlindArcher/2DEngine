@@ -1,0 +1,45 @@
+package game.engine;
+
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
+
+public class GameObject
+{
+	public String name;
+	public Transform transform;
+	public List<Component> components;
+	
+	public GameObject(String objectName)
+	{
+		name = objectName;
+		transform = new Transform();
+		components = new ArrayList<Component>();
+		components.add(transform);
+	}
+	
+	public void start()
+	{
+		
+	}
+	
+	public void onDestroy()
+	{
+		
+	}
+	
+	public void update()
+	{
+		
+	}
+	
+	public void fixedUpdate()
+	{
+		
+	}
+	
+	public void draw(Graphics g, Vector2 offset)
+	{
+		
+	}
+}
