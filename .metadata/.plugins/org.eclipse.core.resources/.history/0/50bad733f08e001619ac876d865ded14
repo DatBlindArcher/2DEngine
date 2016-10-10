@@ -1,0 +1,47 @@
+package game.engine;
+
+import java.util.Iterator;
+
+public class SquareCollider extends Collider 
+{
+	public Rect square;
+	
+	public void start()
+	{
+		super.start();
+		square = new Rect((int)gameObject.transform.position.x - (int)(gameObject.transform.scale.x / 2 * 100f),
+				(int)gameObject.transform.position.y - (int)(gameObject.transform.scale.y / 2 * 100f),
+				(int)(gameObject.transform.scale.x * 100f),
+				(int)(gameObject.transform.scale.y * 100f));
+	}
+	
+	public void collide()
+	{
+		for(Iterator<GameObject> i = Game.instance.activeScene.gameObjects.iterator(); i.hasNext();)
+		{
+			SquareCollider c = null;
+			
+			if((c = i.next().getComponent(SquareCollider.class)) != null)
+			{
+				System.out.println("Found something.");
+				
+				if (square.x < c.square.x + c.square.width &&
+				   square.x + square.width > c.square.x &&
+				   square.y < c.square.y + c.square.height &&
+				   square.height + square.y > c.square.y) 
+				{
+					onCollisionStart((Collider)c);
+				}
+			}
+		}
+	}
+	
+	public void update()
+	{
+		super.update();
+		square = new Rect((int)gameObject.transform.position.x - (int)(gameObject.transform.scale.x / 2),
+				(int)gameObject.transform.position.y - (int)(gameObject.transform.scale.y / 2),
+				(int)gameObject.transform.scale.x,
+				(int)gameObject.transform.scale.y);
+	}
+}

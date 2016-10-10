@@ -1,0 +1,71 @@
+package game.engine;
+
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.geom.*;
+
+public class SquareCollider extends Collider 
+{
+	public Area area;
+	
+	public void start()
+	{
+		super.start();
+		Shape shape = new Rectangle((int)gameObject.transform.position.x - (int)(gameObject.transform.scale.x * 16f),
+				(int)gameObject.transform.position.y - (int)(gameObject.transform.scale.y * 16f),
+				(int)(gameObject.transform.scale.x * 32f),
+				(int)(gameObject.transform.scale.y * 32f));
+		
+		area = new Area(shape);
+	}
+	
+	public void collide()
+	{
+		for(int i = 0; i < Game.instance.activeScene.gameObjects.size(); i++)
+		{
+			SquareCollider c;
+			
+			if((c = Game.instance.activeScene.gameObjects.get(i).getComponent(SquareCollider.class)) != null)
+			{
+				if (c.gameObject == gameObject) continue;
+				
+				if (CheckInterSection(c))
+				{
+					onCollisionStart((Collider)c);
+				}
+			}
+		}
+	}
+	
+	private boolean CheckInterSection(SquareCollider b)
+	{
+		AffineTransform af = new AffineTransform();
+		af.rotate(Math.toRadians(gameObject.transform.rotation), 32f / 2 * gameObject.transform.scale.x, 
+        		32f / 2 * gameObject.transform.scale.y);
+		area.createTransformedArea(af);
+		
+		AffineTransform bf = new AffineTransform();
+		bf.rotate(Math.toRadians(b.gameObject.transform.rotation), 32f / 2 * b.gameObject.transform.scale.x, 
+        		32f / 2 * b.gameObject.transform.scale.y);
+		b.area.createTransformedArea(bf);
+		
+		return area.intersects(b.area.getBounds()) && b.area.intersects(area.getBounds());
+	}
+	
+	public void update()
+	{
+		super.update();
+		Shape shape = new Rectangle((int)gameObject.transform.position.x - (int)(gameObject.transform.scale.x * 16f),
+				(int)gameObject.transform.position.y - (int)(gameObject.transform.scale.y * 16f),
+				(int)(gameObject.transform.scale.x * 32f),
+				(int)(gameObject.transform.scale.y * 32f));
+		
+		area = new Area(shape);
+	}
+	
+	public void onCollisionStart(Collider col)
+	{
+		super.onCollisionStart(col);
+		System.out.println(gameObject.name + " collided with " + col.gameObject.name);
+	}
+}

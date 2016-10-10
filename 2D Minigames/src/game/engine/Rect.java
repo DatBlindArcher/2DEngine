@@ -13,4 +13,9 @@ public class Rect
 		this.width = width;
 		this.height = height;
 	}
+	
+	public String toString()
+	{
+		return "(" + x + ", " + y + ", " + width + ", " + height + ")";
+	}
 }

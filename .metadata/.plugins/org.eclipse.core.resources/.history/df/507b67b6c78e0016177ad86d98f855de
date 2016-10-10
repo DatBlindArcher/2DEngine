@@ -1,0 +1,40 @@
+package game.engine;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
+
+public class Image extends Component
+{
+	public String imagePath;
+	private BufferedImage image;
+	
+	public Image(String path)
+	{
+		imagePath = path;
+	}
+	
+	public void start()
+	{
+		image = null;
+		
+		try 
+		{
+			image = ImageIO.read(new File(imagePath));
+		} 
+		
+		catch (IOException e) 
+		{
+			System.out.println("Failed to load " + image + ": " + e.getMessage());
+		}
+	}
+	
+	public void draw(Graphics g, Vector2 offset)
+	{
+		g.drawImage(image, (int)(gameObject.transform.position.x - offset.x), (int)(gameObject.transform.position.y - offset.y), Game.instance);
+	}
+}

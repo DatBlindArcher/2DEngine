@@ -1,0 +1,134 @@
+package game.engine;
+
+import java.awt.Graphics;
+import java.util.Hashtable;
+import java.util.Dictionary;
+import java.util.Enumeration;
+
+public class GameObject
+{
+	public String name;
+	public Transform transform;
+	@SuppressWarnings("rawtypes")
+	private Dictionary<Class, Component> components = new Hashtable<Class, Component>();
+
+	public GameObject(String objectName, Component[] startComponents)
+	{
+		name = objectName;
+		transform = new Transform();
+		components.put(Transform.class, transform);
+
+		for(int i = 0; i < startComponents.length; i++)
+		{
+			Component c = startComponents[i];
+			c.gameObject = this;
+			c.enabled = true;
+			components.put(c.getClass(), c);
+		}
+		
+		start();
+	}
+
+	public void start()
+	{
+		for(Enumeration<Component> i = components.elements(); i.hasMoreElements();)
+		{
+			i.nextElement().start();
+		}
+	}
+
+	public void stop()
+	{
+		for(Enumeration<Component> i = components.elements(); i.hasMoreElements();)
+		{
+			i.nextElement().stop();
+		}
+	}
+
+	public void update()
+	{
+		for(Enumeration<Component> i = components.elements(); i.hasMoreElements();)
+		{
+			i.nextElement().update();
+		}
+	}
+
+	public void fixedUpdate()
+	{
+		for(Enumeration<Component> i = components.elements(); i.hasMoreElements();)
+		{
+			i.nextElement().fixedUpdate();
+		}
+	}
+
+	public void onGUI()
+	{
+		for(Enumeration<Component> i = components.elements(); i.hasMoreElements();)
+		{
+			i.nextElement().onGUI();
+		}
+	}
+
+	public void draw(Graphics g, Vector2 offset)
+	{
+		for(Enumeration<Component> i = components.elements(); i.hasMoreElements();)
+		{
+			i.nextElement().draw(g, offset);
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public <T extends Component> T addComponent(T component)
+	{
+		for(Enumeration<Class> i = components.keys(); i.hasMoreElements();)
+		{
+			Class c = i.nextElement();
+
+			if(c == component.getClass())
+			{
+				components.remove(c);
+				break;
+			}
+		}
+
+		components.put(component.getClass(), component);
+		component = (T)components.get(component.getClass());
+		component.gameObject = this;
+		component.enabled = true;
+		component.start();
+		return component;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public <T extends Component> T getComponent(Class<T> type)
+	{
+		for(Enumeration<Class> i = components.keys(); i.hasMoreElements();)
+		{
+			Class c = i.nextElement();
+
+			if(c == type)
+			{
+				return (T)components.get(c);
+			}
+		}
+		
+		return null;
+	}
+	
+	public static void Destroy(GameObject gameObject) 
+	{
+		Game.instance.activeScene.gameObjects.remove(gameObject);
+	}
+	
+	public static void Create(GameObject gameObject, Vector2 position, float rotation) 
+	{
+		gameObject.transform.position = position;
+		gameObject.transform.rotation = rotation;
+		Game.instance.activeScene.gameObjects.add(gameObject);
+	}
+	
+	public static void DontDestroyOnLoad(GameObject gameObject) 
+	{
+		Game.instance.ddolScene.gameObjects.add(gameObject);
+	}
+}

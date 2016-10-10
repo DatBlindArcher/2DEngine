@@ -1,0 +1,47 @@
+package game.engine;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+public class Image extends Component
+{
+	public String imagePath;
+	public Color color;
+	private BufferedImage image;
+	
+	public Image(String path, Color imageColor)
+	{
+		imagePath = path;
+		color = imageColor;
+	}
+	
+	public void start()
+	{
+		image = null;
+		
+		try 
+		{
+			image = ImageIO.read(new File("D:/Documents/GitHub/2DEngine/" + imagePath));
+		} 
+		
+		catch (IOException e) 
+		{
+			System.out.println("Failed to load " + image + ": " + e.getMessage());
+		}
+	}
+	
+	public void draw(Graphics g, Vector2 offset)
+	{
+		g.setColor(color);
+		g.drawImage(image, , (int)(gameObject.transform.position.x - offset.x), (int)(gameObject.transform.position.y - offset.y), 
+				(int)(image.getWidth() * gameObject.transform.scale.x), (int)(image.getHeight() * gameObject.transform.scale.y),
+				Game.instance);
+		g.fillRect((int)(gameObject.transform.position.x - offset.x), (int)(gameObject.transform.position.y - offset.y), 
+				(int)(image.getWidth() * gameObject.transform.scale.x), (int)(image.getHeight() * gameObject.transform.scale.y));
+	}
+}

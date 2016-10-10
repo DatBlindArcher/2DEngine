@@ -14,10 +14,14 @@ public class Scene
 	
 	public void draw(Game game)
 	{
-		for(Iterator<Camera> i = cameras.iterator(); i.hasNext();)
+		for(int i = 0; i < cameras.size(); i++)
 		{
-			Camera cam = i.next();
-			cam.draw(game, gameObjects.iterator());
+			cameras.get(i).draw(game, gameObjects);
+		}
+		
+		for(int i = 0; i < gameObjects.size(); i++)
+		{
+			gameObjects.get(i).onGUI();
 		}
 	}
 	

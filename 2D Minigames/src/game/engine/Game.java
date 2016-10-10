@@ -1,7 +1,6 @@
 package game.engine;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.*;
 import javax.swing.*;
 
 import game.engine.Renderer;
@@ -14,6 +13,7 @@ public class Game extends JFrame
 	public static Game instance;
 
 	private long startTime;
+	private Input input;
 	private boolean isRunning = true;
 	private static final long serialVersionUID = 1L;
 	private String title;
@@ -43,6 +43,8 @@ public class Game extends JFrame
 			long time = System.currentTimeMillis();
 			Time.time = time - startTime;
 
+			input.update();
+			collide();
 			update();
 			draw();
 
@@ -92,22 +94,30 @@ public class Game extends JFrame
 		setSize(insets.left + Screen.width + insets.right, insets.top + Screen.height + insets.bottom);
 		guiBuffer = new BufferedImage(Screen.width, Screen.height, BufferedImage.TYPE_INT_ARGB_PRE);
 		screenBuffer = new BufferedImage(Screen.width, Screen.height, BufferedImage.TYPE_INT_RGB);
-		new Input(this);
+		input = new Input(this);
 	}
 
 	void update()
 	{
-		for(Iterator<GameObject> i = activeScene.gameObjects.iterator(); i.hasNext();)
+		for(int i = 0; i < activeScene.gameObjects.size(); i++)
 		{
-			i.next().update();
+			activeScene.gameObjects.get(i).update();
+		}
+	}
+
+	void collide()
+	{
+		for(int i = 0; i < activeScene.gameObjects.size(); i++)
+		{
+			activeScene.gameObjects.get(i).collide();
 		}
 	}
 
 	void fixedUpdate()
 	{
-		for(Iterator<GameObject> i = activeScene.gameObjects.iterator(); i.hasNext();)
+		for(int i = 0; i < activeScene.gameObjects.size(); i++)
 		{
-			i.next().fixedUpdate();
+			activeScene.gameObjects.get(i).fixedUpdate();
 		}
 	}
 
@@ -120,8 +130,9 @@ public class Game extends JFrame
 		GUI.graphics.setBackground(new Color(0, 255, 0, 0));
 		GUI.graphics.clearRect(0, 0, Screen.width, Screen.height);
 		GUI.graphics.setColor(Color.black);
+		GUI.graphics.fillRect(Screen.width / 2 - 1, Screen.height / 2 - 1, 2, 2);
 		activeScene.draw(this);
-
+		
 		// Stats
 		GUI.label(new Rect(0, 10, 0, 0), "Time: " + Time.time);
 		GUI.label(new Rect(0, 30, 0, 0), "DeltaTime: " + Time.deltaTime);

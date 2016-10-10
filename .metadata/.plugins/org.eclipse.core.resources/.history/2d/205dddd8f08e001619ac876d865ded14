@@ -1,0 +1,16 @@
+import java.awt.Color;
+
+import game.engine.*;
+
+public class TestScene extends Scene
+{
+	public void activate()
+	{
+		super.activate();
+		GameObject.Create(new GameObject("Main Camera", new Component[] { new Camera() }), new Vector2(), 0f);
+		GameObject player = new GameObject("Square", new Component[] { new Player(), new Image("Images/Square.png", new Color(0, 255, 0, 0)) });
+		GameObject wall = new GameObject("Square", new Component[] { new SquareCollider(), new Image("Images/Square.png", new Color(0, 255, 0, 0)) });
+		GameObject.Create(player, new Vector2(Screen.width / 2, Screen.height / 2), 0f);
+		GameObject.Create(wall, new Vector2(Screen.width / 2 - 100f, Screen.height / 2 - 100f), 0f);
+	}
+}

@@ -2,7 +2,7 @@ package game.engine;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Iterator;
+import java.util.List;
 
 public class Camera extends Component
 {
@@ -14,7 +14,7 @@ public class Camera extends Component
 		Game.instance.activeScene.cameras.add(this);
 	}
 	
-	public void draw(Game game, Iterator<GameObject> gameObjects)
+	public void draw(Game game, List<GameObject> gameObjects)
 	{
 		Graphics graphics = imageBuffer.getGraphics();
 		
@@ -23,9 +23,9 @@ public class Camera extends Component
 		graphics.fillRect(0, 0, Screen.width, Screen.height);
 		graphics.setColor(Color.black);
 
-		for(Iterator<GameObject> i = gameObjects; i.hasNext();)
+		for(int i = 0; i < gameObjects.size(); i++)
 		{
-			i.next().draw(graphics, gameObject.transform.position);
+			gameObjects.get(i).draw(graphics, gameObject.transform.position);
 		}
 		
 		Renderer.graphics.drawImage(imageBuffer, (int)gameObject.transform.position.x, (int)gameObject.transform.position.y, Screen.width, Screen.height, game);

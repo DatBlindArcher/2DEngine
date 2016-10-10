@@ -1,0 +1,53 @@
+package game.engine;
+import java.awt.Component; 
+import java.awt.event.*; 
+
+public class Input implements KeyListener 
+{
+	private static boolean[] keys;
+	private static boolean[] keysDown;
+	private static boolean[] keysUp;
+	
+    public Input(Component c) 
+    { 
+            c.addKeyListener(this);
+            keys = new boolean[256];
+            keysUp = new boolean[256];
+            keysDown = new boolean[256];
+    }
+    
+    public static boolean getKey(int keyCode) 
+    {
+    	return keys[keyCode]; 
+    } 
+
+    public static boolean getKeyUp(int keyCode) 
+    {
+    	return keysUp[keyCode]; 
+    } 
+    
+    public static boolean getKeyDown(int keyCode) 
+    {
+    	return keysDown[keyCode]; 
+    } 
+    
+    public void keyPressed(KeyEvent e) 
+    { 
+        keys[e.getKeyCode()] = true;
+        keysDown[e.getKeyCode()] = false;
+    } 
+
+    public void keyReleased(KeyEvent e) 
+    {
+        keys[e.getKeyCode()] = false; 
+        keysUp[e.getKeyCode()] = false;
+    }
+    
+    public void update()
+    {
+    	keysUp = new boolean[255];
+    	keysDown = new boolean[255];
+    }
+
+	public void keyTyped(KeyEvent e) { }
+} 

@@ -1,0 +1,20 @@
+import game.engine.*;
+
+public class Apple extends SquareCollider
+{
+	public void start()
+	{
+		super.start();
+	}
+	
+	public void update()
+	{
+		super.update();
+	}
+	
+	public void onCollisionStart(Collider col)
+	{
+		super.onCollisionStart(col);
+		GameObject.Destroy(gameObject);
+	}
+}

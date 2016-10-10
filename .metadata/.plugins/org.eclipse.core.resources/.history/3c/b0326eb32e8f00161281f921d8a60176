@@ -1,0 +1,19 @@
+package game.engine;
+
+public class Collider extends Component
+{
+	public void onCollisionStart(Collider col)
+	{
+		
+	}
+	
+	public void onCollisionStay(Collider col)
+	{
+		
+	}
+	
+	public void onCollisionStop(Collider col)
+	{
+		
+	}
+}

@@ -1,4 +1,5 @@
 package game.engine;
+
 public class Vector2
 {
 	public float x;
@@ -44,5 +45,10 @@ public class Vector2
 	public Vector2 multiply(float factor)
 	{
 		return new Vector2(x * factor, y * factor);
+	}
+	
+	public String toString()
+	{
+		return "(" + x + ", " + y + ")";
 	}
 }

@@ -10,5 +10,7 @@ public class Component
 	public void stop() { }
 	public void update() { }
 	public void fixedUpdate() { }
+	public void onGUI() { }
+	public void collide() { }
 	public void draw(Graphics g, Vector2 offset) { }
 }
