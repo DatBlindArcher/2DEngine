@@ -1,0 +1,23 @@
+package game.engine;
+
+import javafx.scene.Node;
+
+public class Scene extends javafx.scene.Scene
+{
+	private static Transform root = new Transform();
+	
+	public Scene() 
+	{
+		super(root, Screen.width, Screen.height, true);
+	}
+	
+	public void addCamera(Camera cam)
+	{
+		
+	}
+	
+	public void addGameObject(Node node)
+	{
+		root.getChildren().add(node);
+	}
+}

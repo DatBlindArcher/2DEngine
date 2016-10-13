@@ -1,0 +1,84 @@
+package game.engine;
+
+import javafx.geometry.Point3D;
+import javafx.scene.Group;
+
+public class Transform extends Group
+{
+	private Vector3 position;
+	private Vector3 rotation;
+	private Vector3 scale;
+	
+	public Transform()
+	{
+		position = Vector3.zero();
+		rotation = Vector3.zero();
+		scale = Vector3.one();
+	}
+	
+	public void setPosition(Vector3 vector)
+	{
+		position = vector;
+		setTranslateX(position.x);
+		setTranslateY(position.y);
+		setTranslateZ(position.z);
+	}
+	
+	public void setRotation(Vector3 vector)
+	{
+		rotation = vector;
+		setRotationAxis(new Point3D(rotation.x, rotation.y, rotation.z));
+	}
+	
+	public void setScale(Vector3 vector)
+	{
+		scale = vector;
+		setScaleX(scale.x);
+		setScaleY(scale.x);
+		setScaleZ(scale.x);
+	}
+	
+	public void translate(Vector3 vector)
+	{
+		position.add(vector);
+		setPosition(position);
+	}
+	
+	public void rotate(Vector3 vector)
+	{
+		rotation.add(vector);
+		setPosition(rotation);
+	}
+	
+	public void scale(Vector3 vector)
+	{
+		scale.multiply(vector);
+		setPosition(scale);
+	}
+	
+	public Vector3 getPosition()
+	{
+		return position;
+	}
+	
+	public Vector3 getRotation()
+	{
+		return rotation;
+	}
+	
+	public Vector3 getScale()
+	{
+		return scale;
+	}
+	
+	public void setParent(Transform parent, boolean keepWorldPosition)
+	{
+		parent.getChildren().add(this);
+		
+		if(keepWorldPosition)
+		{
+			position.sub(parent.getPosition());
+			setPosition(position);
+		}
+	}
+}

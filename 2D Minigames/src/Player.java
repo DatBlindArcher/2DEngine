@@ -29,9 +29,10 @@ public class Player extends SquareCollider
 		if(Input.getKeyDown(KeyEvent.VK_S))
 		{
 			Random r = new Random();
-			GameObject apple = new GameObject("Apple", new Component[] { new Apple(), new Image("Images/Square.png", Color.magenta) });
-			GameObject.Create(apple, new Vector2(r.nextInt(950), r.nextInt(750)), 0f);
+			GameObject apple = new GameObject("Apple", new Component[] { new Apple(), new Image("Images/Square.png", 0, Color.magenta) });
+			GameObject.create(apple, new Vector2(r.nextInt(950), r.nextInt(750)), 0f);
 		}
+		
 		if(Input.getKey(KeyEvent.VK_Q))
 		{
 			gameObject.transform.rotation--;

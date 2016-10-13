@@ -1,0 +1,50 @@
+package game.engine;
+
+import javafx.geometry.Point3D;
+import javafx.scene.Group;
+
+public class Transform extends Group
+{
+	private Vector3 position;
+	private Vector3 rotation;
+	private Vector3 scale;
+	
+	public Transform()
+	{
+		position = Vector3.zero();
+		rotation = Vector3.zero();
+		scale = Vector3.one();
+	}
+	
+	public void setPosition(Vector3 vector)
+	{
+		setTranslateX(position.x + vector.x);
+		setTranslateY(position.y + vector.y);
+		setTranslateZ(position.z + vector.z);
+	}
+	
+	public void setRotation(Vector3 vector)
+	{
+		this.setRotationAxis(new Point3D(vector.x, vector.y, vector.z));
+	}
+	
+	public void setScale(Vector3 vector)
+	{
+		
+	}
+	
+	public Vector3 getPosition()
+	{
+		return position;
+	}
+	
+	public Vector3 getRotation()
+	{
+		return rotation;
+	}
+	
+	public Vector3 getScale()
+	{
+		return scale;
+	}
+}

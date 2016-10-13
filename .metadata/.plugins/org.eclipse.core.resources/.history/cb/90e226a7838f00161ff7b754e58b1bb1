@@ -1,0 +1,18 @@
+package game.engine;
+
+import java.util.Comparator;
+
+public class LayerHandler implements Comparator
+{
+	public int compare(Object o1, Object o2) 
+	{
+		Image a = (Image)o1;
+		Image b = (Image)o2;
+		
+		if(a.layer == b.layer)
+			return 0;
+		if (a.layer < b.layer)
+			return -1;
+		return 1;
+	}
+}

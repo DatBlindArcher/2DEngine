@@ -1,0 +1,70 @@
+package Snake;
+
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+
+import game.engine.*;
+
+public class Snake extends SquareCollider
+{
+	private SnakeSegment firstSegment;
+	private SnakeSegment lastSegment;
+	
+	public void start()
+	{
+		super.start();
+		GameObject segment = new GameObject("SnakeSegment", "Snake", new Component[] { new SnakeSegment(), new Image("Images/Square.png", 1, Color.green) });
+		GameObject.Create(segment, new Vector2(), 0f);
+		firstSegment = segment.getComponent(SnakeSegment.class);
+		lastSegment = firstSegment;
+	}
+	
+	public void update()
+	{
+		super.update();
+		Vector2 lastPos = gameObject.transform.position;
+
+		if(Input.getKeyDown(KeyEvent.VK_W))
+		{
+			gameObject.transform.position.y -= 32f;
+			firstSegment.move(lastPos);
+			return;
+		}
+		
+		if(Input.getKeyDown(KeyEvent.VK_S))
+		{
+			gameObject.transform.position.y += 32f;
+			firstSegment.move(lastPos);
+			return;
+		}
+		
+		if(Input.getKeyDown(KeyEvent.VK_A))
+		{
+			gameObject.transform.position.x -= 32f;
+			firstSegment.move(lastPos);
+			return;
+		}
+		
+		if(Input.getKeyDown(KeyEvent.VK_D))
+		{
+			gameObject.transform.position.x += 32f;
+			firstSegment.move(lastPos);
+			return;
+		}
+	}
+	
+	public void onCollisionStart(Collider col)
+	{
+		super.onCollisionStart(col);
+		
+		if(col.gameObject.tag == "Apple")
+		{
+			GameObject segment = new GameObject("SnakeSegment", "Snake", new Component[] { new SnakeSegment(), new Image("Images/Square.png", 1, Color.green) });
+			GameObject.Create(segment, new Vector2(), 0f);
+			lastSegment.child = segment.getComponent(SnakeSegment.class);
+			lastSegment = lastSegment.child;
+		}
+		
+		else GameObject.Destroy(gameObject);
+	}
+}

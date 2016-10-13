@@ -2,6 +2,7 @@ package game.engine;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Camera extends Component
@@ -16,6 +17,19 @@ public class Camera extends Component
 	
 	public void draw(Game game, List<GameObject> gameObjects)
 	{
+		List<Image> result = new ArrayList<Image>();
+		
+		for(int i = 0; i < Game.instance.activeScene.gameObjects.size(); i++)
+		{
+			Image img;
+			
+			if((img = Game.instance.activeScene.gameObjects.get(i).getComponent(Image.class)) != null)
+			{
+				result.add(img);
+			}
+		}
+		
+		result.sort(new LayerHandler());
 		Graphics graphics = imageBuffer.getGraphics();
 		
 		// Background
@@ -23,9 +37,9 @@ public class Camera extends Component
 		graphics.fillRect(0, 0, Screen.width, Screen.height);
 		graphics.setColor(Color.black);
 
-		for(int i = 0; i < gameObjects.size(); i++)
+		for(int i = 0; i < result.size(); i++)
 		{
-			gameObjects.get(i).draw(graphics, gameObject.transform.position);
+			result.get(i).draw(graphics, gameObject.transform.position);
 		}
 		
 		Renderer.graphics.drawImage(imageBuffer, (int)gameObject.transform.position.x, (int)gameObject.transform.position.y, Screen.width, Screen.height, game);

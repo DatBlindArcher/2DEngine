@@ -1,0 +1,61 @@
+import javafx.application.Application;
+import javafx.scene.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Box;
+import javafx.scene.shape.DrawMode;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
+import javafx.stage.Stage;
+ 
+public class Demo extends Application 
+{
+    public Parent createContent()
+    {
+        // Box
+        Box testBox = new Box(2, 2, 2);
+        testBox.setMaterial(new PhongMaterial(Color.RED));
+        testBox.setDrawMode(DrawMode.FILL);
+ 
+        // Create and position camera
+        PerspectiveCamera camera = new PerspectiveCamera(true);
+        camera.getTransforms().addAll (
+                new Rotate(-45, Rotate.Y_AXIS),
+                new Rotate(-45, Rotate.X_AXIS),
+                new Translate(0, 0, -15));
+        
+        // Light
+        PointLight light = new PointLight();
+        light.setColor(Color.WHITE);
+        light.getTransforms().add(new Translate(0, -4, -4));
+        AmbientLight ambientLight = new AmbientLight(Color.color(0.6, 0.6, 0.6));
+        
+        // Build the Scene Graph
+        Group root = new Group();       
+        root.getChildren().add(camera);
+        root.getChildren().add(testBox);
+        root.getChildren().add(light);
+        root.getChildren().add(ambientLight);
+        
+        // Use a SubScene       
+        SubScene subScene = new SubScene(root, 1000, 800);
+        subScene.setFill(Color.ALICEBLUE);
+        subScene.setCamera(camera);
+        Group group = new Group();
+        group.getChildren().add(subScene);
+        return group;
+    }
+
+    public void start(Stage primaryStage)
+    {
+        primaryStage.setResizable(true);
+        Scene scene = new Scene(createContent());
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) 
+    {
+        launch(args);
+    }
+}

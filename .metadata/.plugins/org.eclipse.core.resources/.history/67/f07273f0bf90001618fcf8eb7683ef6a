@@ -1,0 +1,11 @@
+package game.engine;
+
+import javafx.scene.shape.Shape3D;
+
+public class Renderer extends Component
+{
+	public Renderer(Shape3D shape)
+	{
+		transform.getChildren().add(shape);
+	}
+}

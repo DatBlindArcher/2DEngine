@@ -1,16 +1,23 @@
 package game.engine;
 
-import java.awt.Graphics;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class GameObject
 {
 	public String name;
+	public String tag;
 	public Transform transform;
 	private boolean enabled = false;
 	@SuppressWarnings("rawtypes")
 	private Map<Class, Component> components = new HashMap<Class, Component>();
 
+	public GameObject(String objectName, String nameTag, Component[] startComponents)
+	{
+		this(objectName, startComponents);
+		tag = nameTag;
+	}
+	
 	public GameObject(String objectName, Component[] startComponents)
 	{
 		name = objectName;
@@ -92,17 +99,6 @@ public class GameObject
 		}
 	}
 
-	public void draw(Graphics g, Vector2 offset)
-	{
-		if (!enabled) return;
-		Component[] list = getComponents();
-		
-		for(int i = 0; i < list.length; i++)
-		{
-			list[i].draw(g, offset);
-		}
-	}
-
 	@SuppressWarnings({ "unchecked" })
 	public <T extends Component> T addComponent(T component)
 	{
@@ -140,7 +136,7 @@ public class GameObject
 				result.add((T)components.get(key));
 		}
 		
-		T[] array = null;
+		T[] array = (T[])Array.newInstance(type, 0);
 		result.toArray(array);
 		return array;
 	}
@@ -152,12 +148,12 @@ public class GameObject
 		return result;
 	}
 	
-	public static void Destroy(GameObject gameObject) 
+	public static void destroy(GameObject gameObject) 
 	{
 		Game.instance.activeScene.gameObjects.remove(gameObject);
 	}
 	
-	public static void Create(GameObject gameObject, Vector2 position, float rotation) 
+	public static void create(GameObject gameObject, Vector2 position, float rotation) 
 	{
 		gameObject.transform.position = position;
 		gameObject.transform.rotation = rotation;
@@ -165,7 +161,7 @@ public class GameObject
 		gameObject.start();
 	}
 	
-	public static void DontDestroyOnLoad(GameObject gameObject) 
+	public static void dontDestroyOnLoad(GameObject gameObject) 
 	{
 		Game.instance.ddolScene.gameObjects.add(gameObject);
 	}

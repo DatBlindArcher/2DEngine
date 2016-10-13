@@ -1,0 +1,12 @@
+package Snake;
+
+import game.engine.*;
+
+public class SnakeSegment extends SquareCollider
+{
+	public void start()
+	{
+		super.start();
+		
+	}
+}

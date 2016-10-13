@@ -1,0 +1,45 @@
+package Snake;
+
+import game.engine.Game;
+import game.engine.Time;
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class SnakeGame extends Application
+{
+	public static Application application;
+	
+	public static void main(String[] args) throws Exception
+	{
+		launch(args);
+	}
+	
+	public void start(Stage primaryStage) throws Exception 
+	{
+		application = this;
+		
+		Thread runGame = new Thread()
+		{
+			@SuppressWarnings("deprecation")
+			public void run()
+			{
+				Game game = new Game("Snake", 1000, 800);
+				new SnakeScene().activate();
+				game.run();
+				
+				try 
+				{
+					System.out.println("Stop");
+					application.stop();
+					Thread.currentThread().stop();
+				} 
+				
+				catch (Exception e) 
+				{
+					e.printStackTrace();
+				}
+			}
+		};
+		runGame.start();
+	}
+}

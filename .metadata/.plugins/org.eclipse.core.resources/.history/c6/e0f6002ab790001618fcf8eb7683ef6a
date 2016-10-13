@@ -1,0 +1,12 @@
+package game.engine;
+
+public class Scene extends javafx.scene.Scene
+{
+	public static Transform root = new Transform();
+	
+	public Scene() 
+	{
+		super(root, Screen.width, Screen.height, true);
+	}
+
+}

@@ -1,6 +1,9 @@
 package game.engine;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 import javax.swing.*;
 
 import game.engine.Renderer;
@@ -14,7 +17,7 @@ public class Game extends JFrame
 
 	private long startTime;
 	private Input input;
-	private boolean isRunning = true;
+	public boolean isRunning = true;
 	private static final long serialVersionUID = 1L;
 	private String title;
 	private BufferedImage guiBuffer;
@@ -33,22 +36,21 @@ public class Game extends JFrame
 		initialize();
 		runFixedUpdate();
 		runUpdate();
-		setVisible(false);
 	}
 
 	public void runUpdate()
 	{
 		while(isRunning) 
 		{
-			long time = System.currentTimeMillis();
-			Time.time = time - startTime;
+			long time = System.nanoTime();
+			Time.time = (time - startTime) / 1000000000f;
 
 			input.update();
-			collide();
+			//collide();
 			update();
 			draw();
 
-			Time.deltaTime = System.currentTimeMillis() - time;
+			Time.deltaTime = (System.nanoTime() - time) / 1000000000f;
 		}
 	}
 
@@ -60,17 +62,17 @@ public class Game extends JFrame
 			{
 				while(isRunning) 
 				{
-					long time = System.currentTimeMillis();
-					Time.fixedTime = time - startTime;
+					long time = System.nanoTime();
+					Time.fixedTime = (time - startTime) / 1000000000f;
 
 					fixedUpdate();
 
-					long delta = System.currentTimeMillis() - time;
+					int delta = (int)((System.nanoTime() - time) / 1000000f);
 
 					try
 					{
 						Thread.sleep(20 - delta);
-						Time.deltaFixedTime = System.currentTimeMillis() - time;
+						Time.deltaFixedTime = (System.nanoTime() - time) / 1000000000f;
 					}
 					catch(Exception e) {}
 				}
@@ -83,7 +85,7 @@ public class Game extends JFrame
 	{
 		ddolScene = new Scene();
 		activeScene.activateScene(ddolScene);
-		startTime = System.currentTimeMillis();
+		startTime = System.nanoTime();
 		setTitle(title); 
 		setSize(Screen.width, Screen.height); 
 		setResizable(false); 
@@ -133,12 +135,14 @@ public class Game extends JFrame
 		GUI.graphics.fillRect(Screen.width / 2 - 1, Screen.height / 2 - 1, 2, 2);
 		activeScene.draw(this);
 		
-		// Stats
-		GUI.label(new Rect(0, 10, 0, 0), "Time: " + Time.time);
-		GUI.label(new Rect(0, 30, 0, 0), "DeltaTime: " + Time.deltaTime);
-		GUI.label(new Rect(0, 50, 0, 0), "FixedTime: " + Time.fixedTime);
-		GUI.label(new Rect(0, 70, 0, 0), "DeltaFixedTime: " + Time.deltaFixedTime);
-		GUI.label(new Rect(0, 90, 0, 0), (1000f / Time.deltaTime) + " FPS");
+		// StatsDecimal
+		DecimalFormat df = new DecimalFormat("#.###");
+		df.setRoundingMode(RoundingMode.FLOOR);
+		GUI.label(new Rect(20, 30, 0, 0), "Time: " + df.format(Time.time));
+		GUI.label(new Rect(20, 50, 0, 0), "DeltaTime: " + df.format(Time.deltaTime));
+		GUI.label(new Rect(20, 70, 0, 0), "FixedTime: " + df.format(Time.fixedTime));
+		GUI.label(new Rect(20, 90, 0, 0), "DeltaFixedTime: " + df.format(Time.deltaFixedTime));
+		GUI.label(new Rect(20, 110, 0, 0), df.format((1f / Time.deltaTime)) + " FPS");
 
 		// Draw frame
 		Renderer.graphics.drawImage(guiBuffer, 0, 0, this);

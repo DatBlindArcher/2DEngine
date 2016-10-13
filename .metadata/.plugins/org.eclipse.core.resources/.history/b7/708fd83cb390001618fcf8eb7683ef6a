@@ -1,0 +1,7 @@
+package blind.archer.engine;
+
+public class Screen 
+{
+	public int width;
+	public int height;
+}

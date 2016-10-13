@@ -17,6 +17,11 @@ public class Vector2
 		this.y = y;
 	}
 	
+	public Vector2 copy()
+	{
+		return new Vector2(x, y);
+	}
+	
 	public void add(Vector2 v)
 	{
 		x += v.x;
@@ -50,5 +55,10 @@ public class Vector2
 	public String toString()
 	{
 		return "(" + x + ", " + y + ")";
+	}
+	
+	public static float distance(Vector2 a, Vector2 b)
+	{
+		return (float)Math.sqrt(a.x * b.x + a.y * b.y);
 	}
 }

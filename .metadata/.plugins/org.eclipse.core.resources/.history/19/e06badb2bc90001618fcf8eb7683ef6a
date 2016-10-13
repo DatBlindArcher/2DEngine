@@ -1,0 +1,34 @@
+package game.engine;
+
+import java.util.*;
+import javafx.scene.*;
+
+public class Scene extends javafx.scene.Scene
+{
+	
+	private Dictionary<Camera, SubScene> views;
+	private 
+	
+	public Scene() 
+	{
+		super(Game.root, Screen.width, Screen.height, true, null);
+		views = new Hashtable<Camera, SubScene>();
+	}
+	
+	public void addCamera(Camera cam)
+	{
+		SubScene camScene = new SubScene(Game.root, Screen.width, Screen.height, true, null);
+		camScene.setCamera(cam);
+		views.put(cam, camScene);
+	}
+	
+	public void removeCamera(Camera cam)
+	{
+		views.remove(cam);
+	}
+	
+	public void addGameObject(Node node)
+	{
+		Game.root.getChildren().add(node);
+	}
+}

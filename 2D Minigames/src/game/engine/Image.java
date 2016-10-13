@@ -1,5 +1,6 @@
 package game.engine;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,11 +15,13 @@ public class Image extends Component
 {
 	public String imagePath;
 	public Color color;
+	public int layer;
 	private BufferedImage image;
 	
-	public Image(String path, Color imageColor)
+	public Image(String path, int depthLayer, Color imageColor)
 	{
 		imagePath = path;
+		layer = depthLayer;
 		color = imageColor;
 	}
 	
@@ -40,13 +43,16 @@ public class Image extends Component
 	public void draw(Graphics g, Vector2 offset)
 	{
 		Graphics2D g2d = (Graphics2D)g;
-		
-		// Add color
-        Graphics img = image.getGraphics();
-		img.setColor(color);
-		img.fillRect(0, 0, image.getWidth(), image.getHeight());
+		BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
         AffineTransform translation = new AffineTransform();
-        
+
+		// Add color
+        Graphics2D img = (Graphics2D)result.getGraphics();
+        img.drawImage(image, 0, 0, Game.instance);
+        img.setColor(color);
+        img.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, (float)color.getAlpha() / 255f));
+        img.fillRect(0, 0, image.getWidth(), image.getHeight());
+		
         // Set center
         translation.translate(gameObject.transform.position.x - image.getWidth() / 2 * gameObject.transform.scale.x, 
         		gameObject.transform.position.y - image.getHeight() / 2 * gameObject.transform.scale.y);
@@ -59,6 +65,6 @@ public class Image extends Component
         translation.scale(gameObject.transform.scale.x, gameObject.transform.scale.y);
         
 		// Draw the image
-        g2d.drawImage(image, translation, Game.instance);
+        g2d.drawImage(result, translation, Game.instance);
 	}
 }

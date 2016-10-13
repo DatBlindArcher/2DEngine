@@ -1,0 +1,8 @@
+package Snake;
+
+import game.engine.*;
+
+public class Snake extends SquareCollider
+{
+	
+}

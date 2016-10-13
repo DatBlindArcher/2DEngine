@@ -1,0 +1,69 @@
+package game.engine;
+
+import javafx.scene.media.*;
+
+public class AudioSource extends Component
+{
+	public String path;
+	public boolean loop;
+	public boolean mute;
+	public boolean spacialSound;
+	public float pan;
+	public float speed;
+	public float volume;
+	private MediaPlayer mediaPlayer;
+	
+	public AudioSource(String audioPath)
+	{
+		path = audioPath;
+	}
+	
+	public void start()
+	{
+		super.start();
+		loop = false;
+		mute = false;
+		spacialSound = true;
+		pan = 0f;
+		speed = 1f;
+		volume = 1f;
+		mediaPlayer = new MediaPlayer(new Media("file://D:/Documents/GitHub/2DEngine/" + path));
+		mediaPlayer.play();
+	}
+	
+	public void play()
+	{
+		mediaPlayer.play();
+	}
+	
+	public void pause()
+	{
+		mediaPlayer.pause();
+	}
+	
+	public void stop()
+	{
+		super.stop();
+		mediaPlayer.stop();
+	}
+	
+	public void update()
+	{
+		super.update();
+		mediaPlayer.setAutoPlay(loop);
+		mediaPlayer.setRate(speed);
+		mediaPlayer.setMute(mute);
+		
+		if(!spacialSound)
+		{
+			mediaPlayer.setBalance(pan);
+			mediaPlayer.setVolume(volume);
+		}
+	}
+	
+	public void setValues(AudioListener audioListener)
+	{
+		mediaPlayer.setBalance((gameObject.transform.position.x - audioListener.gameObject.transform.position.x) / 1000f);
+		mediaPlayer.setVolume(Vector2.distance(gameObject.transform.position, audioListener.gameObject.transform.position) / 1000f); 
+	}
+}

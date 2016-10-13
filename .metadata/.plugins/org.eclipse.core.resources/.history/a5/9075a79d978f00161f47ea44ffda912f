@@ -1,0 +1,20 @@
+package Snake;
+
+import java.awt.Color;
+
+import game.engine.*;
+
+public class SnakeScene extends Scene
+{
+	public void activate()
+	{
+		super.activate();
+		GameObject.create(new GameObject("Main Camera", new Component[] { new Camera() }), new Vector2(), 0f);
+		GameObject.create(new GameObject("Apple Spawner", new Component[] { new AppleSpawner() }), new Vector2(), 0f);
+		GameObject.create(new GameObject("Snake", "Snake", new Component[] { new Snake(), new Image("Images/Square.png", 10, new Color(0, 200, 20, 255)) }), new Vector2(Screen.width / 2, Screen.height / 2), 0f);
+		GameObject wall = new GameObject("Wall", new Component[] { new SquareCollider(), new Image("Images/Square.png", -10, new Color(255, 255, 255, 255)) });
+		wall.transform.scale = new Vector2(Screen.width / 32f, 10f);
+		GameObject.create(wall, new Vector2(0f, -Screen.height / 2f), 0f);
+		
+	}
+}

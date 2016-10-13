@@ -1,0 +1,90 @@
+package game.engine;
+
+import javafx.scene.Group;
+import javafx.scene.transform.Rotate;
+
+public class Transform extends Group
+{
+	private Vector3 position;
+	private Vector3 rotation;
+	private Vector3 scale;
+	
+	public Transform()
+	{
+		super();
+		position = Vector3.zero();
+		rotation = Vector3.zero();
+		scale = Vector3.one();
+	}
+	
+	public void setPosition(Vector3 vector)
+	{
+		position = vector;
+		setTranslateX(position.x);
+		setTranslateY(position.y);
+		setTranslateZ(position.z);
+	}
+	
+	public void setRotation(Vector3 vector)
+	{
+		rotation = vector;
+		setRotationAxis(Rotate.X_AXIS);
+		setRotate(vector.x);
+		setRotationAxis(Rotate.Y_AXIS);
+		setRotate(vector.y);
+		setRotationAxis(Rotate.Z_AXIS);
+		setRotate(vector.z);
+	}
+	
+	public void setScale(Vector3 vector)
+	{
+		scale = vector;
+		setScaleX(scale.x);
+		setScaleY(scale.y);
+		setScaleZ(scale.z);
+	}
+	
+	public void translate(Vector3 vector)
+	{
+		position.add(vector);
+		setPosition(position);
+	}
+	
+	public void rotate(Vector3 vector)
+	{
+		rotation.add(vector);
+		setRotation(rotation);
+	}
+	
+	public void scale(Vector3 vector)
+	{
+		scale.multiply(vector);
+		setScale(scale);
+	}
+	
+	public Vector3 getPosition()
+	{
+		return position;
+	}
+	
+	public Vector3 getRotation()
+	{
+		return rotation;
+	}
+	
+	public Vector3 getScale()
+	{
+		return scale;
+	}
+	
+	public void setParent(Transform parent, boolean keepWorldPosition)
+	{
+		parent.getChildren().add(this);
+		
+		if(keepWorldPosition)
+		{
+			position.sub(parent.getPosition());
+			setPosition(position);
+		}
+	}
+}

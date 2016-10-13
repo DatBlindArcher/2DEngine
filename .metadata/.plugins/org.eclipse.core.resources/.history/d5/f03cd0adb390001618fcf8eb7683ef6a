@@ -1,0 +1,10 @@
+import blind.archer.engine.Game;
+
+public class Demo 
+{
+	public static void main(String[] args)
+	{
+		Game game = new Game("Demo", 1000, 800);
+		game.run();
+	}
+}

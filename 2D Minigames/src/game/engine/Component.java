@@ -1,7 +1,5 @@
 package game.engine;
 
-import java.awt.Graphics;
-
 public class Component 
 {
 	public GameObject gameObject;
@@ -12,5 +10,4 @@ public class Component
 	public void fixedUpdate() { }
 	public void onGUI() { }
 	public void collide() { }
-	public void draw(Graphics g, Vector2 offset) { }
 }
