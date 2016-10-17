@@ -1,0 +1,50 @@
+package game.engine;
+
+import javafx.scene.shape.Shape3D;
+
+public class Collider extends Component
+{
+	private Shape3D shape;
+	
+	public Collider(Shape3D mesh)
+	{
+		mesh.setVisible(false);
+		shape = mesh;
+	}
+	
+	public void start()
+	{
+		super.start();
+		transform.getChildren().add(shape);
+	}
+	
+	public void collide()
+	{
+		for (int i = 0; i < SceneManager.activeScene.gameObjects.size(); i++)
+		{
+			Collider c;
+			
+			if ((c = SceneManager.activeScene.gameObjects.get(i).getComponent(Collider.class)) != null)
+			{
+				if (c.gameObject == gameObject) continue;
+				
+				shape.setTranslateX(transform.position.x);
+				shape.setTranslateY(transform.position.y);
+				shape.setTranslateZ(transform.position.z);
+				
+				c.shape.setTranslateX(c.transform.position.x);
+				c.shape.setTranslateY(c.transform.position.y);
+				c.shape.setTranslateZ(c.transform.position.z);
+				
+				if (shape.getBoundsInParent().intersects(c.shape.getBoundsInParent()))
+				{
+					System.out.println(gameObject.name + " collided with " + c.gameObject.name);
+					System.out.println(gameObject.name + ": " + transform.getPosition());
+					System.out.println(c.gameObject.name + ": " + c.transform.getPosition());
+					System.out.println(gameObject.name + ": " + transform.getBoundsInParent());
+					System.out.println(c.gameObject.name + ": " + c.transform.getBoundsInParent());
+				}
+			}
+		}
+	}
+}

@@ -31,7 +31,7 @@ public class Image extends Component
 		
 		try 
 		{
-			image = ImageIO.read(new File("D:/Documents/GitHub/2DEngine/" + imagePath));
+			image = ImageIO.read(new File("D:/Documents/Documents/GitHub/2DEngine/" + imagePath));
 		} 
 		
 		catch (IOException e) 

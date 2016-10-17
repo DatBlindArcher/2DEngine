@@ -44,9 +44,7 @@
 <fullyQualifiedTypeName name="java.util.Dictionary"/>
 <fullyQualifiedTypeName name="javafx.geometry.Point3D"/>
 <fullyQualifiedTypeName name="game.engine.Transform"/>
-<fullyQualifiedTypeName name="javafx.scene.shape.Shape3D"/>
 <fullyQualifiedTypeName name="javafx.scene.transform.Translate"/>
-<fullyQualifiedTypeName name="javafx.scene.shape.Shape"/>
 <fullyQualifiedTypeName name="javafx.scene.transform.Rotate"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
 <fullyQualifiedTypeName name="javafx.scene.transform.Scale"/>
@@ -55,9 +53,11 @@
 <fullyQualifiedTypeName name="javafx.scene.input.KeyEvent"/>
 <fullyQualifiedTypeName name="javafx.animation.AnimationTimer"/>
 <fullyQualifiedTypeName name="javafx.scene.PerspectiveCamera"/>
-<fullyQualifiedTypeName name="javafx.scene.shape.Sphere"/>
-<fullyQualifiedTypeName name="javafx.application.Application"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="javafx.scene.input.KeyCode"/>
 <fullyQualifiedTypeName name="game.engine.Time"/>
+<fullyQualifiedTypeName name="javafx.scene.shape.Shape3D"/>
+<fullyQualifiedTypeName name="javafx.scene.shape.Shape"/>
+<fullyQualifiedTypeName name="javafx.scene.shape.Sphere"/>
+<fullyQualifiedTypeName name="javafx.application.Application"/>
 </qualifiedTypeNameHistroy>

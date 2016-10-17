@@ -72,7 +72,7 @@ public class Game extends Application
         GameObject ball = new GameObject("Ball", new Component[] { new Renderer(new Sphere(1, 20)), new Collider(new Sphere(1, 20)) });
         scene.addGameObject(ball);
         ball.transform.translate(new Vector3(-2, 0, 0));
-        ball.transform.scale(new Vector3(0.5, 0.5, 0.5));
+        //ball.transform.scale(new Vector3(0.5, 0.5, 0.5));
         obj.getComponent(Collider.class).collide();
         
         new AnimationTimer() 

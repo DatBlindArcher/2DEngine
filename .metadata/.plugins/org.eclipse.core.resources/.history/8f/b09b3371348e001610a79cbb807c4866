@@ -1,8 +1,0 @@
-package game.engine;
-import java.util.*;
-
-public class Scene 
-{
-	public List<Camera> cameras = new ArrayList<Camera>();
-	public List<GameObject> gameObjects = new ArrayList<GameObject>();
-}

@@ -1,9 +1,0 @@
-package game.engine;
-
-public class Camera extends GameObject
-{
-	public Camera(String objectName) 
-	{
-		super(objectName);
-	}	
-}

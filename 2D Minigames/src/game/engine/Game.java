@@ -1,12 +1,10 @@
 package game.engine;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-
 import javax.swing.*;
-
-import game.engine.Renderer;
 
 public class Game extends JFrame
 {
@@ -37,6 +35,7 @@ public class Game extends JFrame
 		initialize();
 		runFixedUpdate();
 		runUpdate();
+		System.exit(0);
 	}
 
 	public void runUpdate()
