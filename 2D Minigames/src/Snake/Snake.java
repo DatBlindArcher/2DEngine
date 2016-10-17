@@ -10,6 +10,8 @@ public class Snake extends SquareCollider
 {
 	private SnakeSegment firstSegment;
 	private SnakeSegment lastSegment;
+	private int segments;
+	private int direction;
 	
 	public void start()
 	{
@@ -17,6 +19,10 @@ public class Snake extends SquareCollider
 		GameObject.create(segment, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 40f), 0f);
 		firstSegment = segment.getComponent(SnakeSegment.class);
 		lastSegment = firstSegment;
+		direction = 0;
+		Time.deltaFixedTime = 0.2f;
+		System.out.println(Time.deltaFixedTime);
+		segments = 1;
 		super.start();
 	}
 	
@@ -28,6 +34,7 @@ public class Snake extends SquareCollider
 		{
 			gameObject.transform.position.y -= 40f;
 			firstSegment.move(lastPos);
+			direction = 0;
 			return;
 		}
 		
@@ -35,6 +42,7 @@ public class Snake extends SquareCollider
 		{
 			gameObject.transform.position.y += 40f;
 			firstSegment.move(lastPos);
+			direction = 1;
 			return;
 		}
 		
@@ -42,6 +50,7 @@ public class Snake extends SquareCollider
 		{
 			gameObject.transform.position.x -= 40f;
 			firstSegment.move(lastPos);
+			direction = 2;
 			return;
 		}
 		
@@ -49,11 +58,43 @@ public class Snake extends SquareCollider
 		{
 			gameObject.transform.position.x += 40f;
 			firstSegment.move(lastPos);
+			direction = 3;
 			return;
 		}
 		
 		super.update();
 		super.collide();
+	}
+	
+	public void fixedUpdate()
+	{
+		Vector2 lastPos = gameObject.transform.position.copy();
+		
+		switch(direction)
+		{
+		case 0:
+			gameObject.transform.position.y -= 40f;
+			firstSegment.move(lastPos);
+			break;
+		case 1:
+			gameObject.transform.position.y += 40f;
+			firstSegment.move(lastPos);
+			break;
+		case 2:
+			gameObject.transform.position.x -= 40f;
+			firstSegment.move(lastPos);
+			break;
+		case 3:
+			gameObject.transform.position.x += 40f;
+			firstSegment.move(lastPos);
+			break;
+		}
+	}
+	
+	public void onGUI()
+	{
+		GUI.setColor(new Color(44, 234, 190, 255));
+		GUI.label(new Rect(20, 130, 0, 0),"Score: " + segments);
 	}
 	
 	public void onCollisionStart(Collider col)
@@ -71,6 +112,7 @@ public class Snake extends SquareCollider
 			Random r = new Random();
 			GameObject apple = new GameObject("Apple", "Apple", new Component[] { new Apple(), new Image("Images/Square.png", 0, Color.red) });
 			GameObject.create(apple, new Vector2(r.nextInt(1000/40 - 2) * 40 + 60f, r.nextInt(800 / 40 - 2) * 40 + 40f), 0f);
+			segments++;
 		}
 		
 		else 

@@ -29,6 +29,7 @@ public class Game extends JFrame
 		Screen.width = width;
 		Screen.height = height;
 		instance = this;
+		Time.deltaFixedTime = 0.02f;
 	}
 
 	public void run()
@@ -71,8 +72,7 @@ public class Game extends JFrame
 
 					try
 					{
-						Thread.sleep(20 - delta);
-						Time.deltaFixedTime = (System.nanoTime() - time) / 1000000000f;
+						Thread.sleep((long)(Time.deltaFixedTime * 1000f) - delta);
 					}
 					catch(Exception e) {}
 				}
@@ -138,6 +138,7 @@ public class Game extends JFrame
 		// StatsDecimal
 		DecimalFormat df = new DecimalFormat("#.###");
 		df.setRoundingMode(RoundingMode.FLOOR);
+		GUI.setColor(Color.black);
 		GUI.label(new Rect(20, 30, 0, 0), "Time: " + df.format(Time.time));
 		GUI.label(new Rect(20, 50, 0, 0), "DeltaTime: " + df.format(Time.deltaTime));
 		GUI.label(new Rect(20, 70, 0, 0), "FixedTime: " + df.format(Time.fixedTime));

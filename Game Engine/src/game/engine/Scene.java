@@ -33,11 +33,13 @@ public class Scene extends javafx.scene.Scene
 		return (GameObject[])gameObjects.toArray();
 	}
 	
-	public void addCamera(Camera cam)
+	public void addCamera(Camera camera)
 	{
-		SubScene camScene = new SubScene(Game.root, Screen.width, Screen.height, true, null);
-		camScene.setCamera(cam.camera);
-		views.put(cam, camScene);
+		Group subroot = new Group();
+		Game.root.getChildren().add(subroot);
+		SubScene camScene = new SubScene(subroot, Screen.width, Screen.height, true, null);
+		camScene.setCamera(camera.camera);
+		views.put(camera, camScene);
 	}
 	
 	public void removeCamera(Camera cam)
