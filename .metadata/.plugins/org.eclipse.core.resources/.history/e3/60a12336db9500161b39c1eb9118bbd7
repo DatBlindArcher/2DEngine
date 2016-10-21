@@ -1,0 +1,43 @@
+package game.engine;
+
+import java.awt.event.KeyEvent;
+
+public class CharacterController extends Component
+{
+	public void update()
+	{
+		int x = 0;
+		int y = 0;
+		
+		if(Input.getKey(KeyEvent.VK_UP))
+		{
+			y--;
+		}
+		
+		if(Input.getKey(KeyEvent.VK_DOWN))
+		{
+			y++;
+		}
+		
+		if(Input.getKey(KeyEvent.VK_LEFT))
+		{
+			x--;
+		}
+		
+		if(Input.getKey(KeyEvent.VK_RIGHT))
+		{
+			x++;
+		}
+
+		Vector2 direction = new Vector2(x, y).normalized();
+		RaycastHit[] hits = Physics.raycast(transform.position, direction, 16f);
+		
+		for(RaycastHit hit : hits)
+		{
+			System.out.println("There is " + hit.gameObject.name + " on " + hit.point.toString());
+		}
+		
+		if(hits.length == 0)
+			transform.position.add(direction);
+	}
+}

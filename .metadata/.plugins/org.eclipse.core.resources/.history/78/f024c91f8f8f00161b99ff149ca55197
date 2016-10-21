@@ -1,8 +1,0 @@
-package Snake;
-
-import game.engine.*;
-
-public class SnakeSegment extends SquareCollider
-{
-	public SnakeSegment child;
-}

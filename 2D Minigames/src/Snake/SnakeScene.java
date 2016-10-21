@@ -10,7 +10,7 @@ public class SnakeScene extends Scene
 	public void activate()
 	{
 		super.activate();
-		GameObject.create(new GameObject("Music", new Component[] { new AudioSource("Sounds/Music.mp3") }), new Vector2(0, 0), 0f);
+		GameObject.create(new GameObject("Music", new Component[] { /*new AudioSource("Sounds/Music.mp3")*/ }), new Vector2(0, 0), 0f);
 		GameObject.create(new GameObject("Main Camera", new Component[] { new Camera(), new AudioListener() }), new Vector2(), 0f);
 		GameObject.create(new GameObject("Snake", "Snake", new Component[] { new Snake(), new Image("Images/Square.png", 10, new Color(0, 200, 20, 255)) }), new Vector2(Screen.width / 2 - 20f, Screen.height / 2), 0f);
 		GameObject wall1 = new GameObject("Wall", new Component[] { new SquareCollider(), new Image("Images/Square.png", -10, new Color(0, 0, 0, 255)) });

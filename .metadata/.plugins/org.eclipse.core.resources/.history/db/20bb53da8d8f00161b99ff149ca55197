@@ -1,9 +1,0 @@
-package Snake;
-
-import java.awt.Color;
-import game.engine.*;
-
-public class SnakeSegment extends SquareCollider
-{
-	GameObject wall = new GameObject("SnakeSegment", new Component[] { new SquareCollider(), new Image("Images/Square.png", 1, Color.green) });
-}

@@ -57,6 +57,11 @@ public class Vector2
 		return "(" + x + ", " + y + ")";
 	}
 	
+	public boolean equals(Vector2 b)
+	{
+		return x == b.x && y == b.y;
+	}
+	
 	public static float distance(Vector2 a, Vector2 b)
 	{
 		return (float)Math.sqrt(a.x * b.x + a.y * b.y);

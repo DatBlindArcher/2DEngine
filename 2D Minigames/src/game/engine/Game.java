@@ -46,7 +46,6 @@ public class Game extends JFrame
 			Time.time = (time - startTime) / 1000000000f;
 
 			input.update();
-			//collide();
 			update();
 			draw();
 

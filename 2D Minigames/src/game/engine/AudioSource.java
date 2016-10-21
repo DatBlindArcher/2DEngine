@@ -22,7 +22,7 @@ public class AudioSource extends Component
 	public void start()
 	{
 		super.start();
-		mediaPlayer = new MediaPlayer(new Media(new File("D:/Documents/Documents/GitHub/2DEngine/" + path).toURI().toString()));
+		mediaPlayer = new MediaPlayer(new Media(new File("D:/Documents/GitHub/2DEngine/" + path).toURI().toString()));
 		setLoop(false);
 		setMute(false);
 		setPan(0f);

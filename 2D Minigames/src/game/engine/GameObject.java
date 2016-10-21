@@ -28,6 +28,7 @@ public class GameObject
 		{
 			Component c = startComponents[i];
 			c.gameObject = this;
+			c.transform = transform;
 			c.enabled = true;
 			components.put(c.getClass(), c);
 		}
@@ -108,6 +109,7 @@ public class GameObject
 		components.put(component.getClass(), component);
 		component = (T)components.get(component.getClass());
 		component.gameObject = this;
+		component.transform = transform;
 		component.enabled = true;
 		component.start();
 		return component;
@@ -150,6 +152,7 @@ public class GameObject
 	
 	public static void destroy(GameObject gameObject) 
 	{
+		gameObject.stop();
 		Game.instance.activeScene.gameObjects.remove(gameObject);
 	}
 	

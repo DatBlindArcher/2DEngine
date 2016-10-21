@@ -1,0 +1,6 @@
+package CharacterController;
+
+public class Character extends CharacterController
+{
+	
+}

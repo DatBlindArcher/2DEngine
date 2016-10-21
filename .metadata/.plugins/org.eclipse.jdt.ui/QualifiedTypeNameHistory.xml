@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.awt.Color"/>
-<fullyQualifiedTypeName name="java.util.Random"/>
-<fullyQualifiedTypeName name="java.awt.Graphics2D"/>
-<fullyQualifiedTypeName name="javax.print.attribute.standard.Media"/>
-<fullyQualifiedTypeName name="java.util.Iterator"/>
-<fullyQualifiedTypeName name="game.engine.GameObject"/>
-<fullyQualifiedTypeName name="game.engine.SquareCollider"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="java.awt.geom.AffineTransform"/>
-<fullyQualifiedTypeName name="java.awt.Rectangle"/>
-<fullyQualifiedTypeName name="java.awt.geom.Area"/>
-<fullyQualifiedTypeName name="java.awt.geom.Ellipse2D.Float"/>
-<fullyQualifiedTypeName name="java.awt.Shape"/>
 <fullyQualifiedTypeName name="java.awt.geom.GeneralPath"/>
 <fullyQualifiedTypeName name="javafx.scene.AccessibleAction"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
@@ -22,7 +10,6 @@
 <fullyQualifiedTypeName name="java.util.Comparator"/>
 <fullyQualifiedTypeName name="java.awt.image.Raster"/>
 <fullyQualifiedTypeName name="java.awt.AlphaComposite"/>
-<fullyQualifiedTypeName name="game.engine.Scene"/>
 <fullyQualifiedTypeName name="java.awt.event.KeyEvent"/>
 <fullyQualifiedTypeName name="game.engine.Component"/>
 <fullyQualifiedTypeName name="com.sun.glass.ui.Application"/>
@@ -59,5 +46,18 @@
 <fullyQualifiedTypeName name="javafx.scene.shape.Shape3D"/>
 <fullyQualifiedTypeName name="javafx.scene.shape.Shape"/>
 <fullyQualifiedTypeName name="javafx.scene.shape.Sphere"/>
+<fullyQualifiedTypeName name="java.awt.geom.AffineTransform"/>
+<fullyQualifiedTypeName name="java.awt.geom.Area"/>
+<fullyQualifiedTypeName name="java.awt.Shape"/>
+<fullyQualifiedTypeName name="java.awt.geom.Ellipse2D.Float"/>
+<fullyQualifiedTypeName name="java.awt.geom.Line2D.Float"/>
+<fullyQualifiedTypeName name="game.engine.Physics"/>
+<fullyQualifiedTypeName name="game.engine.CharacterController"/>
+<fullyQualifiedTypeName name="game.engine.Game"/>
 <fullyQualifiedTypeName name="javafx.application.Application"/>
+<fullyQualifiedTypeName name="game.engine.Scene"/>
+<fullyQualifiedTypeName name="java.awt.Rectangle"/>
+<fullyQualifiedTypeName name="game.engine.GameObject"/>
+<fullyQualifiedTypeName name="java.awt.Graphics2D"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
 </qualifiedTypeNameHistroy>

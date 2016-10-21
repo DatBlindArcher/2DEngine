@@ -1,9 +1,0 @@
-package blind.archer.engine;
-
-public class Transform extends Group
-{
-	public Transform()
-	{
-		
-	}
-}

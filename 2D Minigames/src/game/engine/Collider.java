@@ -1,26 +1,32 @@
 package game.engine;
 
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Area;
+import java.awt.geom.*;
 
 public class Collider extends Component
 {
 	public Area area;
 	
-	public void collide()
+	public void start()
 	{
-		for(int i = 0; i < Game.instance.activeScene.gameObjects.size(); i++)
+		Physics.colliders.add(this);
+	}
+	
+	public void stop()
+	{
+		Physics.colliders.remove(this);
+	}
+	
+	public void collide()
+	{	
+		for(int i = 0; i < Physics.colliders.size(); i++)
 		{
-			Collider c;
+			Collider c = Physics.colliders.get(i);
 			
-			if((c = Game.instance.activeScene.gameObjects.get(i).getComponent(Collider.class)) != null)
+			if (c == this) continue;
+			
+			if (CheckInterSection(c))
 			{
-				if (c.gameObject == gameObject) continue;
-				
-				if (CheckInterSection(c))
-				{
-					onCollisionStart((Collider)c);
-				}
+				onCollisionStart((Collider)c);
 			}
 		}
 	}

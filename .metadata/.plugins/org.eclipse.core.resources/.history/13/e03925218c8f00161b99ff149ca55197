@@ -1,9 +1,0 @@
-package Snake;
-
-public class SnakeScene extends Scene
-{
-	public void activate()
-	{
-		super.activate();
-	}
-}

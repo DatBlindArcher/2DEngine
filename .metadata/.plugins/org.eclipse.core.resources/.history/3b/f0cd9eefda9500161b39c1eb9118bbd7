@@ -1,0 +1,34 @@
+package game.engine;
+
+import java.awt.event.KeyEvent;
+
+public class CharacterController extends Component
+{
+	public void update()
+	{
+		int x = 0;
+		int y = 0;
+		
+		if(Input.getKey(KeyEvent.VK_UP))
+		{
+			y--;
+		}
+		
+		if(Input.getKey(KeyEvent.VK_DOWN))
+		{
+			y++;
+		}
+		
+		if(Input.getKey(KeyEvent.VK_LEFT))
+		{
+			x--;
+		}
+		
+		if(Input.getKey(KeyEvent.VK_RIGHT))
+		{
+			x++;
+		}
+		
+		transform.position.add(new Vector2(x, y).normalized());
+	}
+}
