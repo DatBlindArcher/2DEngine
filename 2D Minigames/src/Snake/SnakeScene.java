@@ -1,4 +1,4 @@
-package Snake;
+package snake;
 
 import java.awt.Color;
 import java.util.Random;

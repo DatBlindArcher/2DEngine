@@ -1,4 +1,4 @@
-package Snake;
+package snake;
 
 import game.engine.Game;
 import javafx.application.Application;
