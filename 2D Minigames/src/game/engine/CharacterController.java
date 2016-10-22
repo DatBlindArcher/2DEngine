@@ -1,65 +1,44 @@
 package game.engine;
 
-import java.awt.event.KeyEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 
 public class CharacterController extends Component
 {
-	private float speed = 200f;
-	private float x = 0;
-	private float y = 0;
+	private Collider collider;
 	
-	public void update()
+	public void start()
 	{
-		x = 0;
-		y = 0;
-		
-		if(Input.getKey(KeyEvent.VK_UP) && checkWall(new Vector2(0f, -1f), Time.deltaTime * speed))
-		{
-			y--;
-		}
-		
-		if(Input.getKey(KeyEvent.VK_DOWN) && checkWall(new Vector2(0f, 1f), Time.deltaTime * speed))
-		{
-			y++;
-		}
-		
-		if(Input.getKey(KeyEvent.VK_LEFT) && checkWall(new Vector2(-1f, 0f), Time.deltaTime * speed))
-		{
-			x--;
-		}
-		
-		if(Input.getKey(KeyEvent.VK_RIGHT) && checkWall(new Vector2(1f, 0f), Time.deltaTime * speed))
-		{
-			x++;
-		}
-
-		Vector2 direction = new Vector2(x, y).normalized().multiply(Time.deltaTime * speed);
-		transform.position.add(direction);
+		collider = gameObject.getComponent(Collider.class);
 	}
 	
-	public void onGUI()
+	public void move(Vector2 delta)
 	{
-		super.onGUI();
-		checkWall(new Vector2(0f, y), Time.deltaFixedTime * speed);
-		checkWall(new Vector2(x, 0f), Time.deltaFixedTime * speed);
-	}
-	
-	private boolean checkWall(Vector2 direction, float t)
-	{
-		Vector2 inverse = new Vector2(direction.y, direction.x);
-		Vector2 inverse2 = inverse.multiply(-1f).multiply(14f);
-		inverse = inverse.multiply(15f);
-		inverse.add(transform.position);
-		inverse2.add(transform.position);
+		Vector2 result = new Vector2(delta.x, delta.y).normalized();
 		
-		if(direction.y > 0)
+		AffineTransform vf = new AffineTransform();
+		vf.translate(0f, result.y);
+		vf.rotate(Math.toRadians(gameObject.transform.rotation), gameObject.transform.position.x, 
+				gameObject.transform.position.y + result.y);
+		Area vertical = collider.area.createTransformedArea(vf);
+		
+		AffineTransform hf = new AffineTransform();
+		hf.translate(result.x, 0f);
+		hf.rotate(Math.toRadians(gameObject.transform.rotation), gameObject.transform.position.x + result.x, 
+				gameObject.transform.position.y);
+		Area horizontal = collider.area.createTransformedArea(hf);
+		
+		RaycastHit[] hitsV = Physics.areacast(gameObject, vertical);
+		RaycastHit[] hitsH = Physics.areacast(gameObject, horizontal);
+		
+		if(hitsV.length == 0)
 		{
-			inverse.x -= 1;
-			inverse2.x -= 1;
+			transform.position.add(new Vector2(0f, result.y));
 		}
 		
-		return Physics.raycast(transform.position, direction, 17f + t).length == 0 &&
-				Physics.raycast(inverse, direction, 17f + t).length == 0 &&
-				Physics.raycast(inverse2, direction, 17f + t).length == 0;
+		if(hitsH.length == 0)
+		{
+			transform.position.add(new Vector2(result.x, 0f));
+		}
 	}
 }

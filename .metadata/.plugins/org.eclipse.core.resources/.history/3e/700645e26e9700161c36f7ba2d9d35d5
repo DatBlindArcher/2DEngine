@@ -1,0 +1,11 @@
+package CharacterController;
+
+import game.engine.*;
+
+public class AI extends CharacterController
+{
+	public void update()
+	{
+		Random r = new Random();
+	}
+}

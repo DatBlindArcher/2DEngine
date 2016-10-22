@@ -46,4 +46,37 @@ public class Physics
 		result.toArray(value);
 		return value;
 	}
+	
+	public static RaycastHit[] areacast(GameObject obj, Area area)
+	{
+		List<RaycastHit> result = new ArrayList<RaycastHit>();
+		
+		for(Collider c : colliders)
+		{
+			if(obj == c.gameObject) continue;
+			Area temp = (Area)area.clone();
+			
+			if(GUI.graphics != null)
+			{
+				GUI.setColor(Color.red);
+				GUI.graphics.draw(temp);
+			}
+			
+			AffineTransform bf = new AffineTransform();
+			bf.rotate(Math.toRadians(c.gameObject.transform.rotation), c.gameObject.transform.position.x, 
+	        		c.gameObject.transform.position.y);
+			Area rotatedB = c.area.createTransformedArea(bf);
+			
+			temp.intersect(rotatedB);
+			
+			if(!temp.isEmpty())
+			{
+				result.add(new RaycastHit(new Vector2((float)temp.getBounds2D().getX(), (float)temp.getBounds2D().getY()), c.gameObject));
+			}
+		}
+
+		RaycastHit[] value = new RaycastHit[result.size()];
+		result.toArray(value);
+		return value;
+	}
 }

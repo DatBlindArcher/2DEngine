@@ -1,0 +1,93 @@
+package game.engine;
+
+import java.awt.event.KeyEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
+
+public class CharacterController extends Component
+{
+	private float speed = 200f;
+	private Collider collider;
+	private int x;
+	private int y;
+	
+	public void start()
+	{
+		collider = gameObject.getComponent(Collider.class);
+	}
+	
+	public void update()
+	{
+		x = 0;
+		y = 0;
+		
+		if(Input.getKey(KeyEvent.VK_W))
+		{
+			y--;
+		}
+
+		if(Input.getKey(KeyEvent.VK_S))
+		{
+			y++;
+		}
+
+		if(Input.getKey(KeyEvent.VK_A))
+		{
+			x--;
+		}
+		
+		if(Input.getKey(KeyEvent.VK_D))
+		{
+			x++;
+		}
+		
+		Vector2 result = new Vector2(x, y).normalized();
+		result = result.multiply(Time.deltaTime * speed);
+		
+		AffineTransform vf = new AffineTransform();
+		vf.translate(0f, result.y + 1f);
+		vf.rotate(Math.toRadians(gameObject.transform.rotation), gameObject.transform.position.x, 
+				gameObject.transform.position.y + result.y);
+		Area vertical = collider.area.createTransformedArea(vf);
+		
+		AffineTransform hf = new AffineTransform();
+		hf.translate(result.x + 1f, 0f);
+		hf.rotate(Math.toRadians(gameObject.transform.rotation), gameObject.transform.position.x + result.x, 
+				gameObject.transform.position.y);
+		Area horizontal = collider.area.createTransformedArea(hf);
+		
+		RaycastHit[] hitsV = Physics.areacast(gameObject, vertical);
+		RaycastHit[] hitsH = Physics.areacast(gameObject, horizontal);
+		
+		if(hitsV.length == 0)
+		{
+			transform.position.add(new Vector2(result.x, 0f));
+		}
+		
+		if(hitsH.length == 0)
+		{
+			transform.position.add(new Vector2(0f, result.y));
+		}
+	}
+	
+	public void onGUI()
+	{
+		Vector2 result = new Vector2(x, y).normalized();
+		result = result.multiply(Time.deltaTime * speed);
+		
+		AffineTransform vf = new AffineTransform();
+		vf.translate(0f, result.y);
+		vf.rotate(Math.toRadians(gameObject.transform.rotation), gameObject.transform.position.x, 
+				gameObject.transform.position.y + result.y);
+		Area vertical = collider.area.createTransformedArea(vf);
+		
+		AffineTransform hf = new AffineTransform();
+		hf.translate(result.x, 0f);
+		hf.rotate(Math.toRadians(gameObject.transform.rotation), gameObject.transform.position.x + result.x, 
+				gameObject.transform.position.y);
+		Area horizontal = collider.area.createTransformedArea(hf);
+		
+		Physics.areacast(gameObject, vertical);
+		Physics.areacast(gameObject, horizontal);
+	}
+}

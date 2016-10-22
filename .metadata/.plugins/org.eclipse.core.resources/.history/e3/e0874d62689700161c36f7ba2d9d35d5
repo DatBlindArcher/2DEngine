@@ -1,0 +1,21 @@
+package game.engine;
+
+import java.awt.event.KeyEvent;
+import java.awt.geom.Area;
+
+public class CharacterController extends Component
+{
+	private float speed = 200f;
+	private float x = 0;
+	private float y = 0;
+	private Collider collider;
+	
+	public void start()
+	{
+		collider = gameObject.getComponent(Collider.class);
+	}
+	
+	public void update()
+	{
+	}
+}

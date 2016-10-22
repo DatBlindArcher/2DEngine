@@ -1,8 +1,0 @@
-package game.engine;
-
-public class Input 
-{
-	boolean[] keysDown = new boolean[255];
-	boolean[] keysPressed = new boolean[255];
-	boolean[] keysReleased = new boolean[255];
-}

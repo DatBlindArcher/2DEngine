@@ -15,4 +15,6 @@
 			<item value="200" key="DIALOG_Y_ORIGIN"/>
 		</section>
 	</section>
+	<section name="org.eclipse.mylyn.tasklist.ui.importWizard">
+	</section>
 </section>

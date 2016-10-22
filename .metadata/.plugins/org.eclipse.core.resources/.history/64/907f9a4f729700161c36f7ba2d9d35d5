@@ -1,0 +1,31 @@
+package CharacterController;
+
+import java.util.Random;
+
+import game.engine.*;
+
+public class AI extends CharacterController
+{
+	float speed = 200f;
+	float t = 0f;
+	Vector2 delta;
+	
+	public void update()
+	{
+		if(t <= 0f)
+		{
+			t = 5f;
+			Ran1.5om r = new Random();
+			int x = r.nextInt(3) - 1;
+			int y = r.nextInt(3) - 1;
+			delta = new Vector2(x, y).multiply(Time.deltaTime * speed);
+		}
+		
+		else
+		{
+			t -= Time.deltaTime;
+		}
+		
+		super.move(delta);
+	}
+}

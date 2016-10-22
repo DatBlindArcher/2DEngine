@@ -1,0 +1,50 @@
+package game.engine;
+
+import java.awt.event.KeyEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
+
+public class CharacterController extends Component
+{
+	private float speed = 200f;
+	private Collider collider;
+	
+	public void start()
+	{
+		collider = gameObject.getComponent(Collider.class);
+	}
+	
+	public void update()
+	{
+		int x = 0;
+		int y = 0;
+		
+		if(Input.getKey(KeyEvent.VK_W))
+		{
+			y--;
+		}
+
+		if(Input.getKey(KeyEvent.VK_S))
+		{
+			y++;
+		}
+
+		if(Input.getKey(KeyEvent.VK_A))
+		{
+			x--;
+		}
+		
+		if(Input.getKey(KeyEvent.VK_D))
+		{
+			x++;
+		}
+		
+		Vector2 result = new Vector2(x, y).normalized();
+		
+		AffineTransform af = new AffineTransform();
+		af.translate(result.x, result.y);
+		af.rotate(Math.toRadians(gameObject.transform.rotation), gameObject.transform.position.x + result.x, 
+				gameObject.transform.position.y + result.y);
+		Area rotatedA = collider.area.createTransformedArea(af);
+	}
+}

@@ -1,0 +1,92 @@
+package game.engine;
+import java.awt.Component; 
+import java.awt.event.*; 
+
+public class Input implements KeyListener, MouseListener 
+{
+	private static boolean[] keys;
+	private static boolean[] keysUp;
+	private static boolean[] keysDown;
+	private static boolean[] keysUpBuffer;
+	private static boolean[] keysDownBuffer;
+	private static boolean[] mouseButtons;
+	
+    public Input(Component c) 
+    { 
+            c.addKeyListener(this);
+            c.addMouseListener(this);
+            keys = new boolean[256];
+            keysUp = new boolean[256];
+            keysDown = new boolean[256];
+            keysUpBuffer = new boolean[256];
+            keysDownBuffer = new boolean[256];
+            mouseButtons = new boolean[10];
+    }
+    
+    public void update()
+    {
+    	keysUp = keysUpBuffer;
+    	keysDown = keysDownBuffer;
+    	keysUpBuffer = new boolean[255];
+    	keysDownBuffer = new boolean[255];
+    }
+    
+    public static boolean getKey(int keyCode) 
+    {
+    	return keys[keyCode]; 
+    } 
+
+    public static boolean getKeyUp(int keyCode) 
+    {
+    	return keysUp[keyCode]; 
+    } 
+    
+    public static boolean getKeyDown(int keyCode) 
+    {
+    	return keysDown[keyCode]; 
+    } 
+    
+    public static boolean getMouseButton(int button)
+    {
+    	return mouseButtons[button];
+    }
+    
+    public void keyPressed(KeyEvent e) 
+    { 
+        if (!keys[e.getKeyCode()]) keysDownBuffer[e.getKeyCode()] = true;
+        keys[e.getKeyCode()] = true;
+    } 
+
+    public void keyReleased(KeyEvent e) 
+    {
+        keys[e.getKeyCode()] = false; 
+        keysUpBuffer[e.getKeyCode()] = true;
+    }
+
+	public void keyTyped(KeyEvent e) { }
+
+	public void mouseClicked(MouseEvent e) 
+	{
+		System.out.println("Clicked: " + e.getButton());
+	}
+
+	public void mousePressed(MouseEvent e) 
+	{
+		System.out.println("Pressed: " + e.getButton());
+	}
+
+	public void mouseReleased(MouseEvent e) 
+	{
+		System.out.println("Released: " + e.getButton());
+	}
+
+	public void mouseEntered(MouseEvent e) 
+	{
+		System.out.println("Entered: " + e.getButton());
+	}
+
+	public void mouseExited(MouseEvent e) 
+	{
+		System.out.println("Exited: " + e.getButton());
+	}
+} 

@@ -1,0 +1,14 @@
+package MultiplayerGame;
+
+import game.engine.*;
+
+public class MainMenu extends Component
+{
+	public void onGUI()
+	{
+		if(GUI.button(""))
+		{
+			
+		}
+	}
+}

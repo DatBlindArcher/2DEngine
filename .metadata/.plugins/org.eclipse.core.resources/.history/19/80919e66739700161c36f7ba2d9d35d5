@@ -1,0 +1,8 @@
+package MultiplayerGame;
+
+import game.engine.*;
+
+public class MainMenu extends Component
+{
+	
+}

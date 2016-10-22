@@ -1,0 +1,10 @@
+package MultiplayerGame;
+
+public class Game {
+
+	public static void main(String[] args) {
+		
+		super.move(delta);
+	}
+
+}

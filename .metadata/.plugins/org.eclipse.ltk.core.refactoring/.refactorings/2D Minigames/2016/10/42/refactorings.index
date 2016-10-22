@@ -1,3 +1,8 @@
 1476024606173	Copy compilation units
 1476025509078	Move compilation units
 1476025513910	Move compilation unit
+1477042236968	Delete elements
+1477043030749	Delete element
+1477047947737	Rename package 'CharacterController'
+1477047963078	Rename package 'MultiplayerGame'
+1477047995307	Rename package 'Snake'
