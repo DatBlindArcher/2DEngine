@@ -6,10 +6,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.util.*;
 
-import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class Image extends Component
 {
@@ -17,6 +16,7 @@ public class Image extends Component
 	public Color color;
 	public int layer;
 	private BufferedImage image;
+	private Map<String, BufferedImage> loadedImages = new HashMap<String, BufferedImage>();
 	
 	public Image(String path, int depthLayer, Color imageColor)
 	{
@@ -29,19 +29,32 @@ public class Image extends Component
 	{
 		image = null;
 		
-		try 
-		{
-			image = ImageIO.read(new File("D:/Documents/GitHub/2DEngine/" + imagePath));
-		} 
+		if(loadedImages.containsKey(imagePath))
+			image = loadedImages.get(imagePath);
 		
-		catch (IOException e) 
+		else
 		{
-			System.out.println("Failed to load " + image + ": " + e.getMessage());
+		
+			try 
+			{
+				ImageIcon img = new ImageIcon(getClass().getResource(imagePath));
+				image = new BufferedImage(img.getIconWidth(), img.getIconHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
+				Graphics g = image.createGraphics();
+				img.paintIcon(null, g, 0, 0);
+				g.dispose();
+				loadedImages.put(imagePath, image);
+			} 
+			
+			catch (Exception e) 
+			{
+				System.out.println("Failed to load " + imagePath + ": " + e.getMessage());
+			}
 		}
 	}
 	
 	public void draw(Graphics g, Vector2 offset)
 	{
+		if (image == null) return;
 		Graphics2D g2d = (Graphics2D)g;
 		BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
         AffineTransform translation = new AffineTransform();

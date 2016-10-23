@@ -12,22 +12,22 @@ public class Character extends CharacterController
 	{
 		Vector2 delta = new Vector2();
 		
-		if(Input.getKey(KeyEvent.VK_W))
+		if(Input.getKey(KeyEvent.VK_W) || Input.getKey(KeyEvent.VK_UP))
 		{
 			delta.y--;
 		}
 		
-		if(Input.getKey(KeyEvent.VK_S))
+		if(Input.getKey(KeyEvent.VK_S) || Input.getKey(KeyEvent.VK_DOWN))
 		{
 			delta.y++;
 		}
 		
-		if(Input.getKey(KeyEvent.VK_A))
+		if(Input.getKey(KeyEvent.VK_A) || Input.getKey(KeyEvent.VK_LEFT))
 		{
 			delta.x--;
 		}
 		
-		if(Input.getKey(KeyEvent.VK_D))
+		if(Input.getKey(KeyEvent.VK_D) || Input.getKey(KeyEvent.VK_RIGHT))
 		{
 			delta.x++;
 		}

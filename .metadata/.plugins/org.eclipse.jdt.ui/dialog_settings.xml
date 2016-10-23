@@ -41,11 +41,12 @@
 	</section>
 	<section name="FatJarPackageWizard">
 		<item value="D:\Documents\Documents\GitHub\2DEngine" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
-		<item value="Snake - 2D Minigames" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
-		<item value="D:\Documents\Desktop\Snake.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
+		<item value="Multiplayer Game - 2D Minigames" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
+		<item value="D:\Documents\Desktop\CharacterController.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
 		<item value="false" key="FatJarPackageWizardPage.ANTSCRIPT_SAVE"/>
 		<item value="1" key="FatJarPackageWizardPage.LIBRARY_HANDLING"/>
 		<list key="FatJarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="D:\Documents\Desktop\CharacterController.jar"/>
 			<item value="D:\Documents\Desktop\Snake.jar"/>
 		</list>
 		<list key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION_HISTORY">

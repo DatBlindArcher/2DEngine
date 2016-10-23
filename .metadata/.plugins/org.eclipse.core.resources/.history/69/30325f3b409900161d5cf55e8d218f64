@@ -1,0 +1,83 @@
+package game.engine;
+
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.util.*;
+
+import javax.swing.ImageIcon;
+
+public class Image extends Component
+{
+	public String imagePath;
+	public Color color;
+	public int layer;
+	private BufferedImage image;
+	private Map<String, BufferedImage> loadedImages = new HashMap<String, BufferedImage>();
+	
+	public Image(String path, int depthLayer, Color imageColor)
+	{
+		imagePath = path;
+		layer = depthLayer;
+		color = imageColor;
+	}
+	
+	public void start()
+	{
+		image = null;
+		
+		if(loadedImages.containsKey(imagePath))
+			image = loadedImages.get(imagePath);
+		
+		else
+		{
+		
+			try 
+			{
+				ImageIcon img = new ImageIcon(getClass().getResource(imagePath));
+				image = new BufferedImage(img.getIconWidth(), img.getIconHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
+				Graphics g = image.createGraphics();
+				img.paintIcon(null, g, 0, 0);
+				g.dispose();
+				loadedImages.put(imagePath, image);
+			} 
+			
+			catch (Exception e) 
+			{
+				System.out.println("Failed to load " + image + ": " + e.getMessage());
+			}
+		}
+	}
+	
+	public void draw(Graphics g, Vector2 offset)
+	{
+		if (image == null) return;
+		Graphics2D g2d = (Graphics2D)g;
+		BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
+        AffineTransform translation = new AffineTransform();
+
+		// Add color
+        Graphics2D img = (Graphics2D)result.getGraphics();
+        img.drawImage(image, 0, 0, Game.instance);
+        img.setColor(color);
+        img.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, (float)color.getAlpha() / 255f));
+        img.fillRect(0, 0, image.getWidth(), image.getHeight());
+		
+        // Set center
+        translation.translate(gameObject.transform.position.x - image.getWidth() / 2 * gameObject.transform.scale.x, 
+        		gameObject.transform.position.y - image.getHeight() / 2 * gameObject.transform.scale.y);
+        
+        // Set rotation
+        translation.rotate(Math.toRadians(gameObject.transform.rotation), image.getWidth() / 2 * gameObject.transform.scale.x, 
+        		image.getHeight() / 2 * gameObject.transform.scale.y);
+        
+        // Set scale
+        translation.scale(gameObject.transform.scale.x, gameObject.transform.scale.y);
+        
+		// Draw the image
+        g2d.drawImage(result, translation, Game.instance);
+	}
+}
