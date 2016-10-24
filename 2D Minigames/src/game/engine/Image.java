@@ -15,14 +15,75 @@ public class Image extends Component
 	public String imagePath;
 	public Color color;
 	public int layer;
-	private BufferedImage image;
-	private Map<String, BufferedImage> loadedImages = new HashMap<String, BufferedImage>();
+	public BufferedImage image;
+	public static Map<String, ImageIcon> loadedImages = new HashMap<String, ImageIcon>();
 	
+	private int width;
+	private int height;
+	private int frameIndex;
+
 	public Image(String path, int depthLayer, Color imageColor)
+	{
+		this(path, depthLayer, imageColor, 0, 0, 0);
+	}
+	
+	public Image(String path, int depthLayer, Color imageColor, int width, int height, int frameIndex)
 	{
 		imagePath = path;
 		layer = depthLayer;
 		color = imageColor;
+		this.width = width;
+		this.height = height;
+		this.frameIndex = frameIndex;
+	}
+	
+	public void changeImage(String path, int depthLayer, Color imageColor, int width, int height, int frameIndex)
+	{
+		imagePath = path;
+		layer = depthLayer;
+		color = imageColor;
+		this.width = width;
+		this.height = height;
+		this.frameIndex = frameIndex;
+		image = null;
+	
+		if(loadedImages.containsKey(imagePath))
+		{
+			ImageIcon img = Image.loadedImages.get(imagePath);
+			width = width == 0 ? img.getIconWidth() : width;
+			height = height == 0 ? img.getIconHeight() : height;
+			int column = (int)Math.floor(img.getIconWidth() / width);
+			
+			int x = frameIndex % column;
+			int y = (int)Math.floor(frameIndex / column);
+			image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB_PRE);
+			Graphics g = image.createGraphics();
+			img.paintIcon(null, g, x * width, y * height);
+			g.dispose();
+		}
+		
+		else
+		{
+			try 
+			{
+				ImageIcon img = new ImageIcon(getClass().getResource(imagePath));
+				width = width == 0 ? img.getIconWidth() : width;
+				height = height == 0 ? img.getIconHeight() : height;
+				int column = (int)Math.floor(img.getIconWidth() / width);
+				
+				int x = frameIndex % column;
+				int y = (int)Math.floor(frameIndex / column);
+				image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB_PRE);
+				Graphics g = image.createGraphics();
+				img.paintIcon(null, g, - x * width, - y * height);
+				g.dispose();
+			} 
+			
+			catch (Exception e) 
+			{
+				System.out.println("Failed to load " + imagePath + ": " + e.getMessage());
+			}
+		}
 	}
 	
 	public void start()
@@ -30,19 +91,35 @@ public class Image extends Component
 		image = null;
 		
 		if(loadedImages.containsKey(imagePath))
-			image = loadedImages.get(imagePath);
+		{
+			ImageIcon img = Image.loadedImages.get(imagePath);
+			width = width == 0 ? img.getIconWidth() : width;
+			height = height == 0 ? img.getIconHeight() : height;
+			int column = (int)Math.floor(img.getIconWidth() / width);
+			
+			int x = frameIndex % column;
+			int y = (int)Math.floor(frameIndex / column);
+			image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB_PRE);
+			Graphics g = image.createGraphics();
+			img.paintIcon(null, g, x * width, y * height);
+			g.dispose();
+		}
 		
 		else
 		{
-		
 			try 
 			{
 				ImageIcon img = new ImageIcon(getClass().getResource(imagePath));
-				image = new BufferedImage(img.getIconWidth(), img.getIconHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
+				width = width == 0 ? img.getIconWidth() : width;
+				height = height == 0 ? img.getIconHeight() : height;
+				int column = (int)Math.floor(img.getIconWidth() / width);
+				
+				int x = frameIndex % column;
+				int y = (int)Math.floor(frameIndex / column);
+				image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB_PRE);
 				Graphics g = image.createGraphics();
-				img.paintIcon(null, g, 0, 0);
+				img.paintIcon(null, g, - x * width, - y * height);
 				g.dispose();
-				loadedImages.put(imagePath, image);
 			} 
 			
 			catch (Exception e) 

@@ -1,0 +1,61 @@
+package game.engine;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import javax.swing.ImageIcon;
+
+public class Animator extends Component
+{
+	private String imagePath;
+	private int width;
+	private int height;
+	private int frames;
+	private Image imageComponent;
+	
+	public Animator(String path, int width, int height, int frames)
+	{
+		imagePath = path;
+		this.width = width;
+		this.height = height;
+		this.frames = frames;
+	}
+	
+	public void start()
+	{
+		imageComponent = gameObject.getComponent(Image.class);
+		imageComponent.image = null;
+		
+		if(Image.loadedImages.containsKey(imagePath))
+		{
+			ImageIcon img = Image.loadedImages.get(imagePath);
+			imageComponent.image = new BufferedImage(img.getIconWidth(), img.getIconHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
+			Graphics g = imageComponent.image.createGraphics();
+			img.paintIcon(null, g, 0, 0);
+			g.dispose();
+		}
+		
+		else
+		{
+			try 
+			{
+				ImageIcon img = new ImageIcon(getClass().getResource(imagePath));
+				imageComponent.image = new BufferedImage(img.getIconWidth(), img.getIconHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
+				Graphics g = imageComponent.image.createGraphics();
+				img.paintIcon(null, g, 0, 0);
+				g.dispose();
+				imageComponent.loadedImages.put(imagePath, img);
+			} 
+			
+			catch (Exception e) 
+			{
+				System.out.println("Failed to load " + imagePath + ": " + e.getMessage());
+			}
+		}
+	}
+	
+	public void update()
+	{
+		
+	}
+}

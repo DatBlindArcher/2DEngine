@@ -1,0 +1,29 @@
+package game.engine;
+
+public class Animation extends Component
+{
+	private boolean running;
+	public float time;
+	public AnimationFrame[] frames;
+	
+	public Animation(boolean runByDefault, AnimationFrame[] frames)
+	{
+		running = runByDefault;
+		this.frames = frames;
+		time = 0f;
+	}
+	
+	public void run(boolean doRun)
+	{
+		running = doRun;
+		time = 0f;
+	}
+	
+	public void update()
+	{
+		if(running)
+		{
+			time += Time.deltaTime;
+		}
+	}
+}
