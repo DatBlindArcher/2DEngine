@@ -1,0 +1,17 @@
+import org.w3c.dom.Node;
+
+import game.engine.*;
+
+public class Apple extends SquareCollider
+{
+	public Apple(Node xml)
+	{
+		super(xml);
+	}
+	
+	public void onCollisionStart(Collider col)
+	{
+		super.onCollisionStart(col);
+		GameObject.destroy(gameObject);
+	}
+}

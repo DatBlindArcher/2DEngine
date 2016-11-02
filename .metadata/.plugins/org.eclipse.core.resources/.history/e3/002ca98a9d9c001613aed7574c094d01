@@ -1,0 +1,8 @@
+package multiplayer.game;
+
+import game.engine.*;
+
+public class LobbyListManager extends Component
+{
+	
+}

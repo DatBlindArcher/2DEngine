@@ -28,11 +28,16 @@ public class Vector2
 		y += v.y;
 	}
 	
+	public Vector2 addtemp(Vector2 v)
+	{
+		return new Vector2(x + v.x,y + v.y);
+	}
+	
 	public Vector2 normalized()
 	{
 		float m = magnitude();
 		if(m == 0) return new Vector2();
-		return new Vector2(x / m, y / m);
+		return new Vector2(Math.signum(x) * x * x / m,Math.signum(y) * y * y / m);
 	}
 	
 	public void normalize()

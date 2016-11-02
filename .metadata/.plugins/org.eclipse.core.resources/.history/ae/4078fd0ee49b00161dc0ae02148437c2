@@ -1,0 +1,26 @@
+package multiplayer.game;
+
+import character.controller.CharacterScene;
+import game.engine.AudioListener;
+import game.engine.Camera;
+import game.engine.Component;
+import game.engine.Game;
+import game.engine.GameObject;
+import game.engine.Rect;
+import game.engine.Scene;
+import game.engine.Screen;
+import game.engine.Vector2;
+import game.engine.UI.Button;
+import game.engine.UI.TextField;
+
+public class LobbyScene extends Scene
+{
+	public void activate()
+	{
+		GameObject.create(new GameObject("Main Camera", new Component[] { new Camera(), new AudioListener() }), new Vector2(), 0f);
+		GameObject.create(new GameObject("Textfield Title", new Component[] { new TextField(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 75, 200, 50), false, "Lobby Menu", "", "/Images/Square.png") }), new Vector2(), 0f);
+		GameObject.create(new GameObject("Button Create Lobby", new Component[] { new Button(new Rect(Screen.width / 2 - 50, Screen.height / 2 + 25, 200, 50), "Start", "/Images/Square.png", () -> System.out.println("Create Lobby") ) }), new Vector2(), 0f);
+		GameObject.create(new GameObject("Button Join Lobby", new Component[] { new Button(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 25, 200, 50), "Multiplayer", "/Images/Square.png", () -> System.out.println("Join Lobby")) }), new Vector2(), 0f);
+		GameObject.create(new GameObject("Button Back", new Component[] { new Button(new Rect(Screen.width / 2 - 50, Screen.height / 2 + 25, 200, 50), "Stop", "/Images/Square.png", () -> new MainScene().activate()) }), new Vector2(), 0f);
+	}
+}

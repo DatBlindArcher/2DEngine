@@ -1,0 +1,11 @@
+package multiplayer.game;
+
+import game.engine.*;
+
+public class LobbyJoinScene extends Scene
+{
+	public void activate()
+	{
+		
+	}
+}

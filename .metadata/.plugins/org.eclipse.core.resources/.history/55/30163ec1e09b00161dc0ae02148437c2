@@ -1,0 +1,8 @@
+package game.engine.UI;
+
+public class TextField extends UI
+{
+	public boolean editable;
+	public String content;
+	public String placeholder;
+}

@@ -10,6 +10,8 @@ import java.util.*;
 
 import javax.swing.ImageIcon;
 
+import org.w3c.dom.Node;
+
 public class Image extends Component
 {
 	public String imagePath;
@@ -35,6 +37,12 @@ public class Image extends Component
 		this.width = width;
 		this.height = height;
 		this.frameIndex = frameIndex;
+	}
+	
+
+	public Image(Node xml)
+	{
+		
 	}
 	
 	public void changeImage(String path, int depthLayer, Color imageColor, int width, int height, int frameIndex)
@@ -100,8 +108,11 @@ public class Image extends Component
 			int x = frameIndex % column;
 			int y = (int)Math.floor(frameIndex / column);
 			image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB_PRE);
-			Graphics g = image.createGraphics();
+			Graphics2D g = image.createGraphics();
 			img.paintIcon(null, g, x * width, y * height);
+	        g.setColor(color);
+	        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, (float)color.getAlpha() / 255f));
+	        g.fillRect(0, 0, image.getWidth(), image.getHeight());
 			g.dispose();
 		}
 		
@@ -117,8 +128,11 @@ public class Image extends Component
 				int x = frameIndex % column;
 				int y = (int)Math.floor(frameIndex / column);
 				image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB_PRE);
-				Graphics g = image.createGraphics();
+				Graphics2D g = image.createGraphics();
 				img.paintIcon(null, g, - x * width, - y * height);
+		        g.setColor(color);
+		        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, (float)color.getAlpha() / 255f));
+		        g.fillRect(0, 0, image.getWidth(), image.getHeight());
 				g.dispose();
 			} 
 			
@@ -132,20 +146,11 @@ public class Image extends Component
 	public void draw(Graphics g, Vector2 offset)
 	{
 		if (image == null) return;
-		Graphics2D g2d = (Graphics2D)g;
-		BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
-        AffineTransform translation = new AffineTransform();
-
-		// Add color
-        Graphics2D img = (Graphics2D)result.getGraphics();
-        img.drawImage(image, 0, 0, Game.instance);
-        img.setColor(color);
-        img.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, (float)color.getAlpha() / 255f));
-        img.fillRect(0, 0, image.getWidth(), image.getHeight());
+		AffineTransform translation = new AffineTransform();
 		
         // Set center
-        translation.translate(gameObject.transform.position.x - image.getWidth() / 2 * gameObject.transform.scale.x, 
-        		gameObject.transform.position.y - image.getHeight() / 2 * gameObject.transform.scale.y);
+        translation.translate(gameObject.transform.position.x - image.getWidth() / 2 * gameObject.transform.scale.x - offset.x, 
+        		gameObject.transform.position.y - image.getHeight() / 2 * gameObject.transform.scale.y - offset.y);
         
         // Set rotation
         translation.rotate(Math.toRadians(gameObject.transform.rotation), image.getWidth() / 2 * gameObject.transform.scale.x, 
@@ -155,6 +160,6 @@ public class Image extends Component
         translation.scale(gameObject.transform.scale.x, gameObject.transform.scale.y);
         
 		// Draw the image
-        g2d.drawImage(result, translation, Game.instance);
+        ((Graphics2D)g).drawImage(image, translation, Game.instance);
 	}
 }

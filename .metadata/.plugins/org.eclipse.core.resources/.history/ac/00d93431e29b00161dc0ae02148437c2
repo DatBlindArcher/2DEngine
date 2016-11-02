@@ -1,0 +1,34 @@
+package multiplayer.game;
+
+import character.controller.CharacterScene;
+import game.engine.*;
+import game.engine.UI.Button;
+import game.engine.UI.GUI;
+
+public class MainMenu extends Component
+{
+	public String input = "Input";
+	public String name = "Name";
+	
+	public void start()
+	{
+		GameObject.create(new GameObject("Button Start", new Component[] { new Button(new Rect(Screen.width / 2 - 50, Screen.height / 2 + 75, 100, 50), "Start", "/Images/Square.png") }), new Vector2(), 0f);
+	}
+	
+	public void onGUI()
+	{
+		name = GUI.textField(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 175, 100, 50), name);
+		input = GUI.textField(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 125, 100, 50), input);
+		GUI.textArea(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 75, 100, 50), "Main Menu");
+		
+		if(GUI.button(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 25, 100, 50), "Start"))
+		{
+			new CharacterScene().activate();
+		}
+		
+		if(GUI.button(new Rect(Screen.width / 2 - 50, Screen.height / 2 + 25, 100, 50), "Stop"))
+		{
+			Game.instance.isRunning = false;
+		}
+	}
+}

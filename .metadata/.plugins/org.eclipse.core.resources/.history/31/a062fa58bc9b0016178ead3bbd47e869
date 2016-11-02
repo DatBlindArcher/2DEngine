@@ -1,0 +1,81 @@
+package game.engine;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
+import game.engine.Image;
+
+public class Button extends UI
+{
+	public String content;
+	public Rect rect;
+	public boolean hover;
+	private BufferedImage button;
+	
+	public Button(Rect rect, String content, String path)
+	{
+		this.rect = rect;
+		this.content = content;
+		hover = false;
+		
+		if(Image.loadedImages.containsKey(path))
+		{
+			ImageIcon img = Image.loadedImages.get(path);
+			button = new BufferedImage(img.getIconWidth(), img.getIconHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
+			Graphics g = button.createGraphics();
+			img.paintIcon(null, g, img.getIconWidth(), img.getIconHeight());
+			g.dispose();
+		}
+		
+		else
+		{
+			try 
+			{
+				ImageIcon img = new ImageIcon(new Object().getClass().getResource(path));
+				button = new BufferedImage(img.getIconWidth(), img.getIconHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
+				Graphics g = button.createGraphics();
+				img.paintIcon(null, g, 0, 0);
+				g.dispose();
+			} 
+			
+			catch (Exception e) 
+			{
+				System.out.println("Failed to load " + button + ": " + e.getMessage());
+			}
+		}
+	}
+	
+	public void draw(Graphics g, Vector2 offset)
+	{
+		if(Game.instance.getMousePosition() == null) return;
+		hover = Math.abs(Game.instance.getMousePosition().x) > Math.abs(rect.x) &&
+				Math.abs(Game.instance.getMousePosition().x) < Math.abs(rect.x + rect.width) &&
+				Math.abs(Game.instance.getMousePosition().y) > Math.abs(rect.y + rect.height / 2f) &&
+				Math.abs(Game.instance.getMousePosition().y) < Math.abs(rect.y + rect.height * 1.5f);
+		Color color = hover ? new Color(150, 150, 150, 255) : new Color(200, 200, 200, 255);
+
+		BufferedImage result = new BufferedImage(button.getWidth(), button.getHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
+        Graphics2D img = (Graphics2D)result.getGraphics();
+        img.drawImage(button, 0, 0, Game.instance);
+        img.setColor(color);
+        img.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, (float)color.getAlpha() / 255f));
+        img.fillRect(0, 0, button.getWidth(), button.getHeight());
+		g.drawImage(result, rect.x, rect.y, rect.width, rect.height, Game.instance);
+		
+		g.setColor(Color.black);
+	    FontMetrics metrics = g.getFontMetrics();
+	    int x = (rect.width - metrics.stringWidth(content)) / 2 + rect.x;
+	    int y = ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent() + rect.y;
+		g.drawString(content, x, y);
+		
+		if(hover && Input.getMouseButtonDown(0))
+		{
+			trigger();
+		}
+	}
+	
+	public void trigger()
+	{
+		System.out.println("Trigger");
+	}
+}

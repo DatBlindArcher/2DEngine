@@ -1,0 +1,12 @@
+package multiplayer.game;
+
+import character.controller.CharacterScene;
+import game.engine.*;
+import game.engine.UI.*;
+
+public class MainMenu extends Component
+{
+	public void start()
+	{
+		}
+}

@@ -1,20 +1,30 @@
 package game.engine;
 
+import org.w3c.dom.Node;
+import java.util.*;
+
 public class AudioListener extends Component
 {
+	public AudioListener() { }
+	public AudioListener(Node xml)
+	{
+		
+	}
+	
 	public void start()
 	{
-		int x = 0;
+		List<AudioListener> audioListeners = new ArrayList<AudioListener>();
 		
-		for(int i = 0; i < Game.instance.activeScene.gameObjects.size(); i++)
-		{
-			if(Game.instance.activeScene.gameObjects.get(i).getComponents(AudioListener.class) != null)
+		Game.instance.activeScene.gameObjects.values().forEach(x -> 
+		{	AudioListener a = null;
+		
+			if(x.getComponent(AudioListener.class) != null)
 			{
-				x++;
+				audioListeners.add(a);
 			}
-		}
+		});
 		
-		if(x > 1)
+		if(audioListeners.size() > 1)
 		{
 			System.out.println("There is more than one AudioListener.");
 		}
@@ -24,14 +34,13 @@ public class AudioListener extends Component
 	{
 		super.update();
 		
-		for(int i = 0; i < Game.instance.activeScene.gameObjects.size(); i++)
-		{
-			AudioSource c;
-			
-			if((c = Game.instance.activeScene.gameObjects.get(i).getComponent(AudioSource.class)) != null)
+		Game.instance.activeScene.gameObjects.values().forEach(x -> 
+		{	AudioSource c = null;
+		
+			if((c = x.getComponent(AudioSource.class)) != null)
 			{
 				c.setValues(this);
 			}
-		}
+		});
 	}
 }

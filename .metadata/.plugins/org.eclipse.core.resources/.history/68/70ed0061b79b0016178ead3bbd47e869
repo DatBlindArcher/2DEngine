@@ -1,0 +1,25 @@
+package multiplayer.game;
+
+import character.controller.CharacterScene;
+import game.engine.*;
+
+public class MainMenu extends Component
+{
+	public String input = "Input";
+	
+	public void onGUI()
+	{
+		input = GUI.textField(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 125, 100, 50), input);
+		GUI.textArea(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 75, 100, 50), "Main Menu");
+		
+		if(GUI.button(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 25, 100, 50), "Start"))
+		{
+			new CharacterScene().activate();
+		}
+		
+		if(GUI.button(new Rect(Screen.width / 2 - 50, Screen.height / 2 + 25, 100, 50), "Stop"))
+		{
+			Game.instance.isRunning = false;
+		}
+	}
+}

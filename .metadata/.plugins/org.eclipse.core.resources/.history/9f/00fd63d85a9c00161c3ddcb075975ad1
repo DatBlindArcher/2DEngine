@@ -1,0 +1,60 @@
+package game.engine;
+import java.util.*;
+
+import org.w3c.dom.*;
+
+public class Scene 
+{
+	public List<Camera> cameras = new ArrayList<Camera>();
+	public List<GameObject> gameObjects = new ArrayList<GameObject>();
+	
+	public Scene() { }
+	public Scene(Node scene)
+	{
+		NodeList xmlgameObject = scene.getChildNodes();
+		
+		for (int i = 0; i < xmlgameObject.getLength(); i++)
+		{
+			gameObjects.add(new GameObject(xmlgameObject.item(i)));
+		}
+	}
+	
+	public void draw(Game game)
+	{
+		for(int i = 0; i < cameras.size(); i++)
+		{
+			cameras.get(i).draw(game, gameObjects);
+		}
+		
+		for(int i = 0; i < Game.instance.ddolScene.cameras.size(); i++)
+		{
+			Game.instance.ddolScene.cameras.get(i).draw(game, gameObjects);
+		}
+		
+		for(int i = 0; i < gameObjects.size(); i++)
+		{
+			gameObjects.get(i).onGUI();
+		}
+		
+		for(int i = 0; i < Game.instance.ddolScene.gameObjects.size(); i++)
+		{
+			Game.instance.ddolScene.gameObjects.get(i).onGUI();
+		}
+	}
+	
+	public void activate()
+	{
+		if (Game.instance.activeScene != null) Game.instance.activeScene.deActivate();
+		Game.instance.activeScene = this;
+	}
+	
+	public void deActivate()
+	{
+		for (int i = 0; i < gameObjects.size(); i++)
+		{
+			gameObjects.get(i).stop();
+		}
+		
+		gameObjects.clear();
+	}
+}

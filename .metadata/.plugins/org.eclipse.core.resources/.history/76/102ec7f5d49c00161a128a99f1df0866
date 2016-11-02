@@ -1,0 +1,22 @@
+package multiplayer.game;
+
+import com.codedisaster.steamworks.SteamID;
+
+public class SteamLobby 
+{
+	public SteamID ID;
+	public String name;
+	public SteamPlayer host;
+	public SteamPlayer[] players;
+	
+	public SteamLobby(SteamID id)
+	{
+		update(id);
+	}
+	
+	public void update(SteamID id)
+	{
+		ID = id;
+		name = SteamManager.instance.matchmaking.getLobbyData(ID, "Name");
+	}
+}

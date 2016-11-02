@@ -1,0 +1,63 @@
+package game.engine;
+import java.util.*;
+
+import org.w3c.dom.*;
+
+public class Scene 
+{
+	public long index = 0;
+	public Map<Long, Camera> cameras = new HashMap<Long, Camera>();
+	public Map<Long, GameObject> gameObjects = new HashMap<Long, GameObject>();
+	
+	public Scene() { }
+	public Scene(Node scene)
+	{
+		NodeList xmlgameObject = scene.getChildNodes();
+		
+		for (int i = 0; i < xmlgameObject.getLength(); i++)
+		{
+			GameObject obj = new GameObject(xmlgameObject.item(i));
+			obj.ID = index;
+			gameObjects.put(++index, obj);
+		}
+	}
+	
+	public void draw(Game game)
+	{
+		for(int i = 0; i < cameras.values().size(); i++)
+		{
+			cameras.values().forEach(draw(game, gameObjects));
+		}
+		
+		for(int i = 0; i < Game.instance.ddolScene.cameras.size(); i++)
+		{
+			Game.instance.ddolScene.cameras.get(i).draw(game, gameObjects);
+		}
+		
+		for(int i = 0; i < gameObjects.size(); i++)
+		{
+			gameObjects.get(i).onGUI();
+		}
+		
+		for(int i = 0; i < Game.instance.ddolScene.gameObjects.size(); i++)
+		{
+			Game.instance.ddolScene.gameObjects.get(i).onGUI();
+		}
+	}
+	
+	public void activate()
+	{
+		if (Game.instance.activeScene != null) Game.instance.activeScene.deActivate();
+		Game.instance.activeScene = this;
+	}
+	
+	public void deActivate()
+	{
+		for (int i = 0; i < gameObjects.size(); i++)
+		{
+			gameObjects.get(i).stop();
+		}
+		
+		gameObjects.clear();
+	}
+}

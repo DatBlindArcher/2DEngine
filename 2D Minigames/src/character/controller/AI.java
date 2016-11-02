@@ -2,13 +2,22 @@ package character.controller;
 
 import java.util.Random;
 
+import org.w3c.dom.Node;
+
 import game.engine.*;
+import game.engine.Physics.CharacterController;
 
 public class AI extends CharacterController
 {
 	float speed = 200f;
 	float t = 0f;
 	Vector2 delta;
+
+	public AI() { }
+	public AI(Node xml)
+	{
+		super(xml);
+	}
 	
 	public void update()
 	{

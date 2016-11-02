@@ -1,0 +1,11 @@
+package game.engine;
+
+import java.awt.Graphics;
+
+public class UI extends Component
+{
+	public void draw(Graphics g, Vector2 offset)
+	{
+		
+	}
+}

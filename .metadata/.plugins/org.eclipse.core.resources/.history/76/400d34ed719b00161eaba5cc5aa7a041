@@ -1,0 +1,27 @@
+package character.controller;
+
+import game.engine.*;
+
+public class Projectile extends CircleCollider
+{
+	public float speed = 1000f;
+	
+	public void update()
+	{
+		transform.position.add(transform.forward().multiply(speed * Time.deltaTime));
+		super.update();
+	}
+	
+	public void fixedUpdate()
+	{
+		super.collide();
+	}
+	
+	public void onCollisionStart(Collider col)
+	{
+		GameObject.destroy(gameObject);
+		
+		if(col.gameObject.tag == "AI")
+			Character.score += 1;
+	}
+}

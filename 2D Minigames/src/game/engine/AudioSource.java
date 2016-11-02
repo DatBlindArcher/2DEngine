@@ -1,6 +1,9 @@
 package game.engine;
 
 import java.io.File;
+
+import org.w3c.dom.Node;
+
 import javafx.scene.media.*;
 
 public class AudioSource extends Component
@@ -17,6 +20,11 @@ public class AudioSource extends Component
 	public AudioSource(String audioPath)
 	{
 		path = audioPath;
+	}
+	
+	public AudioSource(Node xml)
+	{
+		
 	}
 	
 	public void start()

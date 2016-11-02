@@ -1,0 +1,14 @@
+package game.engine;
+
+import org.w3c.dom.Node;
+
+public class Animator extends Component
+{
+	public Animation[] animations;
+
+	public Animator() { }
+	public Animator(Node xml)
+	{
+		
+	}
+}

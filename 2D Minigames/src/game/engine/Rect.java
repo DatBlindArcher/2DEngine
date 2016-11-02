@@ -14,6 +14,11 @@ public class Rect
 		this.height = height;
 	}
 	
+	public boolean equals(Rect b)
+	{
+		return x == b.x && y == b.y && width == b.width && height == b.height;
+	}
+	
 	public String toString()
 	{
 		return "(" + x + ", " + y + ", " + width + ", " + height + ")";

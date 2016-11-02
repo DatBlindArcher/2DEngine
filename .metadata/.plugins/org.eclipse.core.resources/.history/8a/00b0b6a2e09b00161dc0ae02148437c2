@@ -1,0 +1,6 @@
+package game.engine.UI;
+
+public class Text extends UI
+{
+	public String content;
+}

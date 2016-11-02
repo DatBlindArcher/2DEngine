@@ -4,7 +4,12 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import org.w3c.dom.Node;
+
 import game.engine.*;
+import game.engine.Physics.Collider;
+import game.engine.Physics.SquareCollider;
+import game.engine.UI.GUI;
 
 public class Snake extends SquareCollider
 {
@@ -12,6 +17,12 @@ public class Snake extends SquareCollider
 	private SnakeSegment lastSegment;
 	private int segments;
 	private int direction;
+
+	public Snake() { }
+	public Snake(Node xml)
+	{
+		super(xml);
+	}
 	
 	public void start()
 	{

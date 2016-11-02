@@ -3,10 +3,20 @@ package snake;
 import java.awt.Color;
 import java.util.Random;
 
+import org.w3c.dom.Node;
+
 import game.engine.*;
+import game.engine.Physics.Collider;
+import game.engine.Physics.SquareCollider;
 
 public class Apple extends SquareCollider
 {
+	public Apple() { }
+	public Apple(Node xml)
+	{
+		super(xml);
+	}
+	
 	public void update()
 	{
 		collide();

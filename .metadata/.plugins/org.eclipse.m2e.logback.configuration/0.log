@@ -1,0 +1,27 @@
+2016-10-28 00:05:08,195 [Worker-58] ERROR o.e.m.c.i.URLConnectionCaches - Unexpected URLConnection defaultUseCaches enabled
+2016-10-28 00:05:19,620 [Worker-58] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-source-plugin/2.2.1/maven-source-plugin-2.2.1.pom
+2016-10-28 00:05:19,659 [Worker-58] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using NULL lifecycle mapping for MavenProject: com.code-disaster.steamworks4j:steamworks4j-parent:1.4.0 @ D:\Desktop\Plugins\steamworks4j-1.4.0\pom.xml.
+2016-10-28 00:05:19,730 [Worker-58] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.code-disaster.steamworks4j:steamworks4j:1.4.0 @ D:\Desktop\Plugins\steamworks4j-1.4.0\java-wrapper\pom.xml.
+2016-10-28 00:05:19,745 [Worker-58] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.code-disaster.steamworks4j:steamworks4j-jnigen:1.4.0 @ D:\Desktop\Plugins\steamworks4j-1.4.0\jnigen\pom.xml.
+2016-10-28 00:05:19,758 [Worker-58] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/badlogicgames/gdx/gdx-jnigen/1.9.0/gdx-jnigen-1.9.0.pom
+2016-10-28 00:05:20,409 [Worker-58] ERROR o.e.m.c.i.URLConnectionCaches - Unexpected URLConnection defaultUseCaches enabled
+2016-10-28 00:05:20,420 [Worker-58] ERROR o.e.m.c.i.URLConnectionCaches - Unexpected URLConnection defaultUseCaches enabled
+2016-10-28 00:05:20,422 [Worker-58] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 3 project(s) in 12 sec
+2016-10-28 00:05:20,644 [Worker-61] ERROR o.e.m.c.i.URLConnectionCaches - Unexpected URLConnection defaultUseCaches enabled
+2016-10-28 00:05:20,680 [Worker-61] ERROR o.e.m.c.i.URLConnectionCaches - Unexpected URLConnection defaultUseCaches enabled
+2016-10-28 00:05:20,687 [Worker-61] ERROR o.e.m.c.i.URLConnectionCaches - Unexpected URLConnection defaultUseCaches enabled
+2016-10-28 00:06:21,562 [Worker-62] ERROR o.e.m.c.i.URLConnectionCaches - Unexpected URLConnection defaultUseCaches enabled
+2016-10-28 00:06:26,574 [Worker-58] ERROR o.e.m.c.i.URLConnectionCaches - Unexpected URLConnection defaultUseCaches enabled
+2016-10-28 00:06:26,580 [Worker-58] ERROR o.e.m.c.i.URLConnectionCaches - Unexpected URLConnection defaultUseCaches enabled
+2016-10-28 00:06:26,585 [Worker-58] ERROR o.e.m.c.i.URLConnectionCaches - Unexpected URLConnection defaultUseCaches enabled
+2016-10-28 00:07:50,559 [Worker-47] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/code-disaster/steamworks4j/steamworks4j/1.4.0/steamworks4j-1.4.0.pom
+2016-10-28 00:07:50,718 [Worker-47] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/code-disaster/steamworks4j/steamworks4j/1.4.0/steamworks4j-1.4.0.pom
+2016-10-28 00:07:50,979 [Worker-47] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/code-disaster/steamworks4j/steamworks4j-parent/1.4.0/steamworks4j-parent-1.4.0.pom
+2016-10-28 00:07:51,100 [Worker-47] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/code-disaster/steamworks4j/steamworks4j-parent/1.4.0/steamworks4j-parent-1.4.0.pom
+2016-10-28 00:07:51,118 [Worker-47] INFO  o.e.m2e.scm.MavenProjectPomScanner - steamworks4j
+2016-10-28 00:07:51,119 [Worker-47] INFO  o.e.m2e.scm.MavenProjectPomScanner - Connection: scm:git:https://github.com/code-disaster/steamworks4j.git
+2016-10-28 00:07:51,119 [Worker-47] INFO  o.e.m2e.scm.MavenProjectPomScanner -        dev: scm:git:https://github.com/code-disaster/steamworks4j.git
+2016-10-28 00:07:51,119 [Worker-47] INFO  o.e.m2e.scm.MavenProjectPomScanner -        url: http://github.com/code-disaster/steamworks4j
+2016-10-28 00:07:51,119 [Worker-47] INFO  o.e.m2e.scm.MavenProjectPomScanner -        tag: HEAD
+2016-10-28 00:07:51,126 [Worker-47] ERROR o.e.m2e.scm.MavenCheckoutOperation - SCM provider is not available for scm:git:https://github.com/code-disaster/steamworks4j.git
+2016-10-28 00:07:51,132 [Worker-47] INFO  o.e.m.s.i.w.MavenProjectCheckoutJob - No Maven projects to import

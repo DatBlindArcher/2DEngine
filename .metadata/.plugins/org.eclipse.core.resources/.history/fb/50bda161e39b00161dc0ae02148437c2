@@ -1,0 +1,15 @@
+package game.engine.UI;
+
+import game.engine.Rect;
+
+public class InputfieldPair 
+{
+	public Rect rect;
+	public String content;
+	
+	public InputfieldPair(Rect rect, String content)
+	{
+		this.rect = rect;
+		this.content = content;
+	}
+}

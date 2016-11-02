@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.Random;
 
 import game.engine.*;
+import game.engine.Physics.SquareCollider;
 
 public class SnakeScene extends Scene
 {
