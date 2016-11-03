@@ -1,6 +1,0 @@
-package game.engine;
-
-public class Animation extends Component
-{
-	public Action action = () -> this.start();
-}

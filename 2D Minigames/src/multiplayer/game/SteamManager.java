@@ -118,7 +118,6 @@ public class SteamManager extends Component
 		public void onLobbyEnter(SteamID steamIDLobby, int chatPermissions, boolean blocked, SteamMatchmaking.ChatRoomEnterResponse response) 
 		{
 			System.out.println("Lobby entered: " + steamIDLobby);
-			System.out.println("  - response: " + response);
 
 			int numMembers = matchmaking.getNumLobbyMembers(steamIDLobby);
 			System.out.println("  - " + numMembers + " members in lobby");
@@ -136,28 +135,22 @@ public class SteamManager extends Component
 		public void onLobbyDataUpdate(SteamID steamIDLobby, SteamID steamIDMember, boolean success) 
 		{
 			System.out.println("Lobby data update for " + steamIDLobby);
-			System.out.println("  - member: " + steamIDMember.getAccountID());
-			System.out.println("  - success: " + success);
-			
-			if(lobby != null)
+
+			if(lobby != null && lobby.ID.equals(steamIDLobby))
 				lobby.update(steamIDLobby);
 		}
 
 		public void onLobbyChatUpdate(SteamID steamIDLobby, SteamID steamIDUserChanged, SteamID steamIDMakingChange, SteamMatchmaking.ChatMemberStateChange stateChange) 
 		{
 			System.out.println("Lobby chat update for " + steamIDLobby);
-			System.out.println("  - user changed: " + steamIDUserChanged.getAccountID());
-			System.out.println("  - made by user: " + steamIDMakingChange.getAccountID());
 			System.out.println("  - state changed: " + stateChange.name());
+			
+			if(lobby != null && lobby.ID.equals(steamIDLobby))
+				lobby.update(steamIDLobby);
 		}
 
 		public void onLobbyChatMessage(SteamID steamIDLobby, SteamID steamIDUser, SteamMatchmaking.ChatEntryType entryType, int chatID) 
 		{
-			System.out.println("Lobby chat message for " + steamIDLobby);
-			System.out.println("  - from user: " + steamIDUser.getAccountID());
-			System.out.println("  - chat entry type: " + entryType);
-			System.out.println("  - chat id: #" + chatID);
-
 			try 
 			{
 				int size = matchmaking.getLobbyChatEntry(steamIDLobby, chatID, chatEntry, chatMessage);
@@ -168,10 +161,6 @@ public class SteamManager extends Component
 
 				String message = new String(bytes, messageCharset);
 				String[] split = message.trim().split(":");
-
-				System.out.println("  - from user: " + chatEntry.getSteamIDUser().getAccountID());
-				System.out.println("  - chat entry type: " + chatEntry.getChatEntryType());
-				System.out.println("  - content: \"" + message + "\"");
 				
 				if(!split[0].equals("cmd")) return;
 				

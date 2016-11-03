@@ -1,9 +1,0 @@
-package game.engine;
-
-import java.util.List;
-
-public class AnimationFrame 
-{
-	public float time;
-	public Action[] actions;
-}

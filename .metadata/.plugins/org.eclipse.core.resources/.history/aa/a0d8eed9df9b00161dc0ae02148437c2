@@ -1,7 +1,0 @@
-package game.engine;
-
-public class Toggle extends UI
-{
-	public boolean toggled;
-	public String content;
-}

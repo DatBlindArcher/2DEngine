@@ -54,6 +54,7 @@ public class Physics
 		{
 			Collider c = colliders.get(i);
 			if(obj == c.gameObject) continue;
+			if(c.area == null) continue;
 			Area temp = (Area)area.clone();
 			
 			if(GUI.graphics != null)

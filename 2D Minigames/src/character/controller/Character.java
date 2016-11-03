@@ -63,7 +63,7 @@ public class Character extends CharacterController
 		Vector2 mouse = Input.getMousePosition();
 		mouse.add(new Vector2(-Screen.width / 2f, -Screen.height / 2f));
 		float angle = (float)Math.toDegrees(Math.atan(mouse.y / mouse.x));
-		if(mouse.x > 0f) angle += 180f;
+		if(mouse.x >= 0f) angle += 180f;
 		transform.rotation = angle;
 		
 		super.move(delta.multiply(Time.deltaTime * speed));

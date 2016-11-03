@@ -22,8 +22,8 @@ public class MultiplayerCharacter extends CharacterController
 	public SteamPlayer player;
 	public static int score = 0;
 	float speed = 200f;
-	private ByteBuffer readBuffer = ByteBuffer.allocateDirect(13);
-	private ByteBuffer sendBuffer = ByteBuffer.allocateDirect(13);
+	private ByteBuffer readBuffer = ByteBuffer.allocateDirect(14);
+	private ByteBuffer sendBuffer = ByteBuffer.allocateDirect(14);
 
 	public MultiplayerCharacter(boolean mine, SteamPlayer owner) 
 	{
@@ -60,19 +60,28 @@ public class MultiplayerCharacter extends CharacterController
 		{
 			delta.x++;
 		}
-		
-		if(Input.getKey(KeyEvent.VK_SHIFT))
-		{
-			if(Input.getMouseButton(0))
-			{
-				GameObject.create(new GameObject("Bullet", "Projectile", new Component[] { new Projectile(), new Image("/Images/Circle.png", 1, Color.orange) }), transform.position.addtemp(transform.forward().multiply(32f)), transform.rotation, new Vector2(0.5f, 0.5f));
-			}
-		}
-		
-		else
+
+		if(!Input.getKey(KeyEvent.VK_SHIFT))
 		{
 			if(Input.getMouseButtonDown(0))
 			{
+				sendBuffer.clear();
+				sendBuffer.put((byte)1);
+				
+				for(SteamPlayer player : SteamManager.instance.lobby.players)
+				{
+					try 
+					{
+						if(player.ID.equals(SteamManager.instance.user.ID)) continue;
+						SteamManager.instance.networking.sendP2PPacket(player.ID, sendBuffer, 0, 1, P2PSend.UnreliableNoDelay, 0);
+					} 
+					
+					catch (SteamException e) 
+					{
+						e.printStackTrace();
+					}
+				}
+				
 				GameObject.create(new GameObject("Bullet", "Projectile", new Component[] { new Projectile(), new Image("/Images/Circle.png", 1, Color.orange) }), transform.position.addtemp(transform.forward().multiply(32f)), transform.rotation, new Vector2(0.5f, 0.5f));
 			}
 		}
@@ -80,7 +89,7 @@ public class MultiplayerCharacter extends CharacterController
 		Vector2 mouse = Input.getMousePosition();
 		mouse.add(new Vector2(-Screen.width / 2f, -Screen.height / 2f));
 		float angle = (float)Math.toDegrees(Math.atan(mouse.y / mouse.x));
-		if(mouse.x > 0f) angle += 180f;
+		if(mouse.x >= 0f) angle += 180f;
 		transform.rotation = angle;
 		
 		super.move(delta.multiply(Time.deltaTime * speed));
@@ -88,8 +97,6 @@ public class MultiplayerCharacter extends CharacterController
 	
 	public void fixedUpdate()
 	{
-		System.out.println(isMine + ":" + transform.position.toString());
-		
 		if(isMine)
 		{
 			sendBuffer.clear();
@@ -97,13 +104,22 @@ public class MultiplayerCharacter extends CharacterController
 			sendBuffer.putFloat(transform.position.x);
 			sendBuffer.putFloat(transform.position.y);
 			sendBuffer.putFloat(transform.rotation);
+			sendBuffer.put(Input.getKey(KeyEvent.VK_SHIFT) && Input.getMouseButton(0) ? (byte)1 : (byte)0);
+			
+			if(Input.getKey(KeyEvent.VK_SHIFT))
+			{
+				if(Input.getMouseButton(0))
+				{
+					GameObject.create(new GameObject("Bullet", "Projectile", new Component[] { new Projectile(), new Image("/Images/Circle.png", 1, Color.orange) }), transform.position.addtemp(transform.forward().multiply(32f)), transform.rotation, new Vector2(0.5f, 0.5f));
+				}
+			}
 			
 			for(SteamPlayer player : SteamManager.instance.lobby.players)
 			{
 				try 
 				{
 					if(player.ID.equals(SteamManager.instance.user.ID)) continue;
-					SteamManager.instance.networking.sendP2PPacket(player.ID, sendBuffer, 0, 13, P2PSend.Reliable, 0);
+					SteamManager.instance.networking.sendP2PPacket(player.ID, sendBuffer, 0, 14, P2PSend.UnreliableNoDelay, 0);
 				} 
 				
 				catch (SteamException e) 
@@ -116,7 +132,6 @@ public class MultiplayerCharacter extends CharacterController
 		else
 		{
 			int packetSize = SteamManager.instance.networking.isP2PPacketAvailable(0);
-			System.out.println("PacketSize: " + packetSize);
 
 			while (packetSize > 0) 
 			{
@@ -127,10 +142,7 @@ public class MultiplayerCharacter extends CharacterController
 				{
 					if (SteamManager.instance.networking.readP2PPacket(steamIDSender, readBuffer, 0) > 0) 
 					{
-						if(steamIDSender.equals(player.ID)) continue;
 						int bytesReceived = readBuffer.limit();
-						System.out.println("Rcv packet: userID=" + steamIDSender.getAccountID() + ", " + bytesReceived + " bytes");
-
 						byte[] bytes = new byte[bytesReceived];
 						readBuffer.get(bytes);
 					}
@@ -147,10 +159,19 @@ public class MultiplayerCharacter extends CharacterController
 					transform.position.x = readBuffer.getFloat(1);
 					transform.position.y = readBuffer.getFloat(5);
 					transform.rotation = readBuffer.getFloat(9);
+					
+					if(readBuffer.get(13) == 1)
+					{
+						GameObject.create(new GameObject("Bullet", "Projectile", new Component[] { new Projectile(), new Image("/Images/Circle.png", 1, Color.orange) }), transform.position.addtemp(transform.forward().multiply(32f)), transform.rotation, new Vector2(0.5f, 0.5f));
+					}
+					
+					packetSize -= 14;
+					break;
+					
+				case 1:
+					GameObject.create(new GameObject("Bullet", "Projectile", new Component[] { new Projectile(), new Image("/Images/Circle.png", 1, Color.orange) }), transform.position.addtemp(transform.forward().multiply(32f)), transform.rotation, new Vector2(0.5f, 0.5f));
 					break;
 				}
-				
-				packetSize -= 13;
 			}
 		}
 	}
