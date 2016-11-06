@@ -75,11 +75,11 @@ public class TextField extends UI
 		Color color = Color.darkGray;
 		BufferedImage result = new BufferedImage(background.getWidth(), background.getHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
         Graphics2D img = (Graphics2D)result.getGraphics();
-        img.drawImage(background, 0, 0, Game.instance);
+        img.drawImage(background, 0, 0, Engine.instance);
         img.setColor(color);
         img.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, (float)color.getAlpha() / 255f));
         img.fillRect(0, 0, background.getWidth(), background.getHeight());
-		g.drawImage(result, rect.x, rect.y, rect.width, rect.height, Game.instance);
+		g.drawImage(result, rect.x, rect.y, rect.width, rect.height, Engine.instance);
 		
 		String actualcontent = content.length() > 0 ? content : placeholder;
 		g.setColor(Color.white);

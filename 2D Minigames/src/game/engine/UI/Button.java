@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 
 import game.engine.Action;
-import game.engine.Game;
+import game.engine.Engine;
 import game.engine.Image;
 import game.engine.Input;
 import game.engine.Rect;
@@ -63,11 +63,11 @@ public class Button extends UI
 
 		BufferedImage result = new BufferedImage(background.getWidth(), background.getHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
         Graphics2D img = (Graphics2D)result.getGraphics();
-        img.drawImage(background, 0, 0, Game.instance);
+        img.drawImage(background, 0, 0, Engine.instance);
         img.setColor(color);
         img.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, (float)color.getAlpha() / 255f));
         img.fillRect(0, 0, background.getWidth(), background.getHeight());
-		g.drawImage(result, rect.x, rect.y, rect.width, rect.height, Game.instance);
+		g.drawImage(result, rect.x, rect.y, rect.width, rect.height, Engine.instance);
 		
 		g.setColor(Color.black);
 	    FontMetrics metrics = g.getFontMetrics();

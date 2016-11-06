@@ -1,0 +1,68 @@
+package game.engine.Physics;
+
+import java.awt.geom.*;
+
+import game.engine.Component;
+
+public class Collider2D extends Component
+{
+	public Area area;
+	
+	public void start()
+	{
+		Physics.colliders.add(this);
+	}
+	
+	public void stop()
+	{
+		Physics.colliders.remove(this);
+	}
+	
+	public void collide()
+	{	
+		for(int i = 0; i < Physics.colliders.size(); i++)
+		{
+			Collider2D c = Physics.colliders.get(i);
+			
+			if (c.gameObject.tag.equals(gameObject.tag)) continue;
+			
+			if (CheckInterSection(c))
+			{
+				onCollisionStart((Collider2D)c);
+			}
+		}
+	}
+	
+	private boolean CheckInterSection(Collider2D b)
+	{
+		if(area == null || b.area == null) return false;
+		
+		AffineTransform af = new AffineTransform();
+		af.rotate(Math.toRadians(gameObject.transform.rotation), gameObject.transform.position.x, 
+				gameObject.transform.position.y);
+		Area rotatedA = area.createTransformedArea(af);
+		
+		AffineTransform bf = new AffineTransform();
+		bf.rotate(Math.toRadians(b.gameObject.transform.rotation), b.gameObject.transform.position.x, 
+        		b.gameObject.transform.position.y);
+		Area rotatedB = b.area.createTransformedArea(bf);
+		
+		rotatedA.intersect(rotatedB);
+		return !rotatedA.isEmpty();
+	}
+	
+	public void onCollisionStart(Collider2D col)
+	{
+		System.out.println(gameObject.name + " collided with " + col.gameObject.name);
+	}
+	
+	public void onCollisionStay(Collider2D col)
+	{
+		
+	}
+	
+	public void onCollisionStop(Collider2D col)
+	{
+		
+	}
+}

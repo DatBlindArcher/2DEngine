@@ -81,9 +81,9 @@ public class Input implements KeyListener, MouseListener
     
     public static Vector2 getMousePosition()
     {
-    	Point p = Game.instance.getMousePosition();
+    	Point p = Engine.instance.getMousePosition();
     	if(p == null) return new Vector2(-1f, -1f);
-    	return new Vector2((float)p.getX(), (float)p.getY() - Game.instance.insets.top);
+    	return new Vector2((float)p.getX(), (float)p.getY() - Engine.instance.insets.top);
     }
     
     public void keyPressed(KeyEvent e) 

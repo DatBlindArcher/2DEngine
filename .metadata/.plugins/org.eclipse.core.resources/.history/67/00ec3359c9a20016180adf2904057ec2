@@ -1,0 +1,7 @@
+public class Game 
+{
+	public String name;
+	public int maxplayers;
+	public String description;
+	public String texture;
+}

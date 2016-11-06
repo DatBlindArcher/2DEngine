@@ -22,7 +22,7 @@ public class Camera extends Component
 	public void start() 
 	{
 		imageBuffer = new BufferedImage(Screen.width, Screen.height, BufferedImage.TYPE_INT_RGB);
-		Game.instance.activeScene.cameras.put(gameObject.ID, this);
+		Engine.instance.activeScene.cameras.put(gameObject.ID, this);
 	}
 	
 	public void update()
@@ -30,7 +30,7 @@ public class Camera extends Component
 		corner = new Vector2(transform.position.x - Screen.width / 2f, transform.position.y - Screen.height / 2f);
 	}
 	
-	public void draw(Game game, Collection<GameObject> gameObjects)
+	public void draw(Engine game, Collection<GameObject> gameObjects)
 	{
 		java.util.List<Image> result = new ArrayList<Image>();
 		java.util.List<UI> ui = new ArrayList<UI>();

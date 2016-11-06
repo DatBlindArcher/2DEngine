@@ -48,7 +48,6 @@
 <fullyQualifiedTypeName name="java.nio.charset.Charset"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="com.codedisaster.steamworks.SteamMatchmaking.LobbyType"/>
-<fullyQualifiedTypeName name="game.engine.Scene"/>
 <fullyQualifiedTypeName name="game.engine.Component"/>
 <fullyQualifiedTypeName name="com.codedisaster.steamworks.SteamMatchmaking.LobbyComparison"/>
 <fullyQualifiedTypeName name="character.controller.CharacterScene"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="com.codedisaster.steamworks.SteamID"/>
 <fullyQualifiedTypeName name="multiplayer.game.SteamManager"/>
 <fullyQualifiedTypeName name="multiplayer.game.SteamPlayer"/>
+<fullyQualifiedTypeName name="game.engine.Scene"/>
 </qualifiedTypeNameHistroy>

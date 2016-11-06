@@ -24,22 +24,22 @@ public class Scene
 		}
 	}
 	
-	public void draw(Game game)
+	public void draw(Engine game)
 	{
 		List<GameObject> result = new ArrayList<GameObject>();
 		result.addAll(gameObjects.values());
-		result.addAll(Game.instance.ddolScene.gameObjects.values());
+		result.addAll(Engine.instance.ddolScene.gameObjects.values());
 		cameras.values().forEach(x -> x.draw(game, result));
-		Game.instance.ddolScene.cameras.values().forEach(x -> x.draw(game, result));
+		Engine.instance.ddolScene.cameras.values().forEach(x -> x.draw(game, result));
 
 		gameObjects.values().forEach(x -> x.onGUI());
-		Game.instance.ddolScene.gameObjects.values().forEach(x -> x.onGUI());
+		Engine.instance.ddolScene.gameObjects.values().forEach(x -> x.onGUI());
 	}
 	
 	public void activate()
 	{
-		if (Game.instance.activeScene != null) Game.instance.activeScene.deActivate();
-		Game.instance.activeScene = this;
+		if (Engine.instance.activeScene != null) Engine.instance.activeScene.deActivate();
+		Engine.instance.activeScene = this;
 	}
 	
 	public void deActivate()

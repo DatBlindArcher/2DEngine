@@ -177,10 +177,10 @@ public class GameObject
 	public static void destroy(GameObject gameObject) 
 	{
 		gameObject.stop();
-		if(Game.instance.activeScene.gameObjects.containsKey(gameObject.ID))
-			Game.instance.activeScene.gameObjects.remove(gameObject.ID);
-		if(Game.instance.ddolScene.gameObjects.containsKey(gameObject.ID))
-			Game.instance.activeScene.gameObjects.remove(gameObject.ID);
+		if(Engine.instance.activeScene.gameObjects.containsKey(gameObject.ID))
+			Engine.instance.activeScene.gameObjects.remove(gameObject.ID);
+		if(Engine.instance.ddolScene.gameObjects.containsKey(gameObject.ID))
+			Engine.instance.activeScene.gameObjects.remove(gameObject.ID);
 	}
 	
 	public static void create(GameObject gameObject, Vector2 position, float rotation) 
@@ -193,15 +193,15 @@ public class GameObject
 		gameObject.transform.position = position;
 		gameObject.transform.rotation = rotation;
 		gameObject.transform.scale = scale;
-		Game.instance.activeScene.gameObjects.put(Game.instance.activeScene.index + 1, gameObject);
-		gameObject.ID = ++Game.instance.activeScene.index;
+		Engine.instance.activeScene.gameObjects.put(Engine.instance.activeScene.index + 1, gameObject);
+		gameObject.ID = ++Engine.instance.activeScene.index;
 		gameObject.start();
 	}
 	
 	public static void dontDestroyOnLoad(GameObject gameObject) 
 	{
-		Game.instance.ddolScene.gameObjects.put(Game.instance.ddolScene.index, gameObject);
-		Game.instance.activeScene.gameObjects.remove(gameObject.ID);
-		gameObject.ID = ++Game.instance.ddolScene.index;
+		Engine.instance.ddolScene.gameObjects.put(Engine.instance.ddolScene.index, gameObject);
+		Engine.instance.activeScene.gameObjects.remove(gameObject.ID);
+		gameObject.ID = ++Engine.instance.ddolScene.index;
 	}
 }

@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
-import game.engine.Game;
+import game.engine.Engine;
 import game.engine.Image;
 import game.engine.Input;
 import game.engine.Rect;
@@ -86,11 +86,11 @@ public class GUI
 
 		BufferedImage result = new BufferedImage(button.getWidth(), button.getHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
         Graphics2D img = (Graphics2D)result.getGraphics();
-        img.drawImage(button, 0, 0, Game.instance);
+        img.drawImage(button, 0, 0, Engine.instance);
         img.setColor(Color.darkGray);
         img.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, (float)Color.darkGray.getAlpha() / 255f));
         img.fillRect(0, 0, button.getWidth(), button.getHeight());
-		graphics.drawImage(result, rect.x, rect.y, rect.width, rect.height, Game.instance);
+		graphics.drawImage(result, rect.x, rect.y, rect.width, rect.height, Engine.instance);
 		
 		setColor(Color.white);
 	    FontMetrics metrics = graphics.getFontMetrics();
@@ -101,20 +101,20 @@ public class GUI
 	
 	public static boolean button(Rect rect, String content)
 	{
-		if(Game.instance.getMousePosition() == null) return false;
-		boolean hover = Math.abs(Game.instance.getMousePosition().x) > Math.abs(rect.x) &&
-				Math.abs(Game.instance.getMousePosition().x) < Math.abs(rect.x + rect.width) &&
-				Math.abs(Game.instance.getMousePosition().y) > Math.abs(rect.y + rect.height / 2f) &&
-				Math.abs(Game.instance.getMousePosition().y) < Math.abs(rect.y + rect.height * 1.5f);
+		if(Engine.instance.getMousePosition() == null) return false;
+		boolean hover = Math.abs(Engine.instance.getMousePosition().x) > Math.abs(rect.x) &&
+				Math.abs(Engine.instance.getMousePosition().x) < Math.abs(rect.x + rect.width) &&
+				Math.abs(Engine.instance.getMousePosition().y) > Math.abs(rect.y + rect.height / 2f) &&
+				Math.abs(Engine.instance.getMousePosition().y) < Math.abs(rect.y + rect.height * 1.5f);
 		Color color = hover ? new Color(150, 150, 150, 255) : new Color(200, 200, 200, 255);
 
 		BufferedImage result = new BufferedImage(button.getWidth(), button.getHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
         Graphics2D img = (Graphics2D)result.getGraphics();
-        img.drawImage(button, 0, 0, Game.instance);
+        img.drawImage(button, 0, 0, Engine.instance);
         img.setColor(color);
         img.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, (float)color.getAlpha() / 255f));
         img.fillRect(0, 0, button.getWidth(), button.getHeight());
-		graphics.drawImage(result, rect.x, rect.y, rect.width, rect.height, Game.instance);
+		graphics.drawImage(result, rect.x, rect.y, rect.width, rect.height, Engine.instance);
 		
 		setColor(Color.black);
 	    FontMetrics metrics = graphics.getFontMetrics();

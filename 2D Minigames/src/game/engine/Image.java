@@ -160,6 +160,6 @@ public class Image extends Component
         translation.scale(gameObject.transform.scale.x, gameObject.transform.scale.y);
         
 		// Draw the image
-        ((Graphics2D)g).drawImage(image, translation, Game.instance);
+        ((Graphics2D)g).drawImage(image, translation, Engine.instance);
 	}
 }

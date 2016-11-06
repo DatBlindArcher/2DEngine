@@ -1,0 +1,11 @@
+import game.engine.Scene;
+
+public class MinigamesScene extends Scene
+{
+	public Game[] games;
+	
+	public void activate()
+	{
+		super.activate();
+	}
+}

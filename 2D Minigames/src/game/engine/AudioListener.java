@@ -15,7 +15,7 @@ public class AudioListener extends Component
 	{
 		List<AudioListener> audioListeners = new ArrayList<AudioListener>();
 		
-		Game.instance.activeScene.gameObjects.values().forEach(x -> 
+		Engine.instance.activeScene.gameObjects.values().forEach(x -> 
 		{	AudioListener a = null;
 		
 			if(x.getComponent(AudioListener.class) != null)
@@ -34,7 +34,7 @@ public class AudioListener extends Component
 	{
 		super.update();
 		
-		Game.instance.activeScene.gameObjects.values().forEach(x -> 
+		Engine.instance.activeScene.gameObjects.values().forEach(x -> 
 		{	AudioSource c = null;
 		
 			if((c = x.getComponent(AudioSource.class)) != null)
