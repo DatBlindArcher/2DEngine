@@ -73,7 +73,7 @@ public class MultiplayerCharacter extends CharacterController
 					try 
 					{
 						if(player.ID.equals(SteamManager.instance.user.ID)) continue;
-						SteamManager.instance.networking.sendP2PPacket(player.ID, sendBuffer, 0, 1, P2PSend.UnreliableNoDelay, 0);
+						SteamManager.instance.networking.sendP2PPacket(player.ID, sendBuffer, P2PSend.UnreliableNoDelay, 0);
 					} 
 					
 					catch (SteamException e) 
@@ -119,7 +119,7 @@ public class MultiplayerCharacter extends CharacterController
 				try 
 				{
 					if(player.ID.equals(SteamManager.instance.user.ID)) continue;
-					SteamManager.instance.networking.sendP2PPacket(player.ID, sendBuffer, 0, 14, P2PSend.UnreliableNoDelay, 0);
+					SteamManager.instance.networking.sendP2PPacket(player.ID, sendBuffer, P2PSend.UnreliableNoDelay, 0);
 				} 
 				
 				catch (SteamException e) 

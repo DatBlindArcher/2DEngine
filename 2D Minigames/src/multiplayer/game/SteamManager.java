@@ -51,7 +51,7 @@ public class SteamManager extends Component
 		SteamAPI.printDebugInfo(System.out);
 
 		// Initialize SteamObjects
-		networking = new SteamNetworking(networkingCallback, SteamNetworking.API.Client);
+		networking = new SteamNetworking(networkingCallback);
 		matchmaking = new SteamMatchmaking(matchmakingCallback);
 		matchmaking.addRequestLobbyListStringFilter("GameType", "CharacterController", LobbyComparison.Equal);
 
@@ -264,6 +264,24 @@ public class SteamManager extends Component
 	
 	private SteamUserCallback userCallback = new SteamUserCallback() 
 	{
-		public void onValidateAuthTicketResponse(SteamID arg0, AuthSessionResponse arg1, SteamID arg2) { }
+		@Override
+		public void onAuthSessionTicket(SteamAuthTicket steamAuthTicket, SteamResult steamResult) {
+
+		}
+
+		@Override
+		public void onValidateAuthTicket(SteamID steamID, AuthSessionResponse authSessionResponse, SteamID steamID1) {
+
+		}
+
+		@Override
+		public void onMicroTxnAuthorization(int i, long l, boolean b) {
+
+		}
+
+		@Override
+		public void onEncryptedAppTicket(SteamResult steamResult) {
+
+		}
 	};
 }
